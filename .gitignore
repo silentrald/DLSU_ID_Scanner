@@ -1,1 +1,7 @@
 node_modules
+.env
+*/.DS_STORE
+
+curl.txt
+db.sql
+doc
