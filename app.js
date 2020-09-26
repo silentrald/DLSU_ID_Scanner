@@ -25,7 +25,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/api/login', (req, res) => {
+app.post('/api/user/login', (req, res) => {
     let { username, password } = req.body;
     let user;
 
