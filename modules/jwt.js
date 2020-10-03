@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config');
-const SECRET = config.JWT_SECRET;
+const SECRET = 'for_testing';
 
 const customJWT = {
     /**

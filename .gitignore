@@ -5,3 +5,5 @@ node_modules
 curl.txt
 db.sql
 doc
+
+test/testValues.js
