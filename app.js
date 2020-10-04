@@ -16,10 +16,12 @@ app.use(bodyParser.json());
 
 // API ROUTERS
 const userRtr       = require('./routers/userRtr');
+const studentRtr    = require('./routers/studentRtr');
 const attendanceRtr = require('./routers/attendanceRtr');
 const assignmentRtr = require('./routers/assignmentRtr');
 
 app.use('/api/user', userRtr);
+app.use('/api/student', studentRtr);
 app.use('/api/attendance', attendanceRtr);
 app.use('/api/assignment', assignmentRtr);
 

@@ -15,6 +15,7 @@ const values = {
     },
     eventID: '',
     serialID: '',
+    newSerialID: '00000000',
 };
 
 module.exports = values;
