@@ -37,13 +37,13 @@ const studentAPI = {
     },
 
     // PATCH
-    patchEditStudent: (req, res) => {
+    patchEditStudent: async (req, res) => {
 
     },
 
     // DELETE
-    deleteStudent: (req, res) => {
-
+    deleteStudent: async (req, res) => {
+        
     },
 };
 

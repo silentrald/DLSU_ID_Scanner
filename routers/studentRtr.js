@@ -26,6 +26,10 @@ router.post('/create',
  */
 // PATCH
 router.patch('/edit/:serialID',
+    mw.verifyToken,
+    mw.hasAccess([ ADMIN, ORGANIZER, CHECKER ]),
+    mw.validateParamSerialID,
+    mw.validateStudentEditInfo,
     api.patchEditStudent);
 
 /**
@@ -33,6 +37,9 @@ router.patch('/edit/:serialID',
  */
 // DELETE
 router.delete('/delete/:serialID',
+    mw.verifyToken,
+    mw.hasAccess([ ADMIN, ORGANIZER, CHECKER ]),
+    mw.validateParamSerialID,
     api.deleteStudent);
 
 module.exports = router;
