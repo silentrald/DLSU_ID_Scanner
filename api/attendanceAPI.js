@@ -106,7 +106,7 @@ const attendanceAPI = {
                     UPDATE  attendances
                     SET     exit = now()
                     WHERE   event_id = $1
-                        AND serial_id = $2
+                        AND serial_id = $2;
                 `,
                 values: [ eventID, serialID ]
             };

@@ -325,5 +325,178 @@ describe('/api/student', () => {
                 done(err);
             }
         });
+
+    });
+
+    describe('/api/student/edit/:serialID', () => {
+        test('Edit fname (Checker Token)', async (done) => {
+            try {
+                const res = await got.patch(`${URL}/edit/${newSerialID}`, {
+                    json: {
+                        fname: 'editted',
+                        lname: 'dummy',
+                        token: checkerToken
+                    },
+                    responseType: 'json',
+                    throwHttpErrors: false,
+                });
+
+                const { body, statusCode } = res;
+
+                expect(statusCode).toEqual(200);
+
+                expect(body).toEqual(
+                    expect.objectContaining({
+                        msg: 'Student info was edited'
+                    })
+                );
+
+                // TODO: Check value in the db
+
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+
+        test('Edit lname (Checker Token)', async (done) => {
+            try {
+                const res = await got.patch(`${URL}/edit/${newSerialID}`, {
+                    json: {
+                        fname: 'editted',
+                        lname: 'editted',
+                        token: checkerToken
+                    },
+                    responseType: 'json',
+                    throwHttpErrors: false,
+                });
+
+                const { body, statusCode } = res;
+
+                expect(statusCode).toEqual(200);
+
+                expect(body).toEqual(
+                    expect.objectContaining({
+                        msg: 'Student info was edited'
+                    })
+                );
+
+                // TODO: Check value in the db
+
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+    
+        test('Edit without fname (Checker Token)', async (done) => {
+            try {
+                const res = await got.patch(`${URL}/edit/${newSerialID}`, {
+                    json: {
+                        lname: 'editted',
+                        token: checkerToken
+                    },
+                    responseType: 'json',
+                    throwHttpErrors: false,
+                });
+
+                const { body, statusCode } = res;
+
+                expect(statusCode).toEqual(403);
+
+                expect(body).toEqual(
+                    expect.objectContaining({
+                        error: expect.anything()
+                    })
+                );
+
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+
+        test('Edit without lname (Checker Token)', async (done) => {
+            try {
+                const res = await got.patch(`${URL}/edit/${newSerialID}`, {
+                    json: {
+                        fname: 'editted',
+                        token: checkerToken
+                    },
+                    responseType: 'json',
+                    throwHttpErrors: false,
+                });
+
+                const { body, statusCode } = res;
+
+                expect(statusCode).toEqual(403);
+
+                expect(body).toEqual(
+                    expect.objectContaining({
+                        error: expect.anything()
+                    })
+                );
+
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+
+    });
+
+    describe('/api/student/delete', () => {
+        test('BODY: delete the new added student', async (done) => {
+            try {
+                const res = await got.delete(`${URL}/delete/${newSerialID}`, {
+                    json: {
+                        token: checkerToken,
+                    },
+                    responseType: 'json',
+                    throwHttpErrors: false,
+                });
+
+                const { body, statusCode } = res;
+
+                expect(statusCode).toEqual(200);
+
+                expect(body).toEqual(
+                    expect.objectContaining({
+                        msg: 'Student was deleted'
+                    })
+                );
+
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+
+        test('BODY: delete again', async (done) => {
+            try {
+                const res = await got.delete(`${URL}/delete/${newSerialID}`, {
+                    json: {
+                        token: checkerToken,
+                    },
+                    responseType: 'json',
+                    throwHttpErrors: false,
+                });
+
+                const { body, statusCode } = res;
+
+                expect(statusCode).toEqual(400);
+
+                expect(body).toEqual(
+                    expect.objectContaining({
+                        errMsg: 'Student not found'
+                    })
+                );
+
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+
     });
 });

@@ -38,12 +38,59 @@ const studentAPI = {
 
     // PATCH
     patchEditStudent: async (req, res) => {
+        const { fname, lname } = req.body;
+        const { serialID } = req.params;
 
+        try {
+            const queryUpStudent = {
+                text: `
+                    UPDATE  students
+                    SET     fname = $1,
+                            lname = $2
+                    WHERE   serial_id = $3;
+                `,
+                values: [
+                    fname,
+                    lname,
+                    serialID
+                ]
+            };
+
+            const { rowCount } = await db.query(queryUpStudent);
+            if (rowCount === 0) {
+                return res.status(400).send({ errMsg: 'Student not found' });
+            }
+
+            return res.status(200).send({ msg: 'Student info was edited' });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
     },
 
     // DELETE
     deleteStudent: async (req, res) => {
-        
+        const { serialID } = req.params;
+
+        try {
+            const queryDelStudent = {
+                text: `
+                    DELETE FROM students
+                    WHERE serial_id = $1;
+                `,
+                values: [ serialID ]
+            };
+            const { rowCount } = await db.query(queryDelStudent);
+
+            if (rowCount === 0) { // no student was deleted
+                return res.status(400).send({ errMsg: 'Student not found' });
+            }
+
+            return res.status(200).send({ msg: 'Student was deleted' });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
     },
 };
 
