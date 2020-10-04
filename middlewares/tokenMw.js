@@ -4,21 +4,43 @@ const tokenMw = {
     /**
      * Verifies the token it the request body
      */
-    verifyToken: (req, res, next) => {
+    verifyToken: async (req, res, next) => {
         const { token } = req.body;
 
-        jwt.verifyPromise(token)
-            .then(userData => {
-                req.user = userData;
-                next();
-            })
-            .catch(err => {
-                console.log(err);
-                // if (err.name === 'TokenExpiredError') // JWT Expired
-                // if (err.name === 'JsonWebTokenError')
-                // if (err.name === 'NotBeforeError')
-                return res.status(401).send({ errMsg: 'Unauthorized' });
-            });
+        try {
+            const userData = await jwt.verifyPromise(token)
+            req.user = userData;
+            next();
+        } catch (err) {
+            console.log(err);
+
+            // if (err.name === 'TokenExpiredError') // JWT Expired
+            // if (err.name === 'JsonWebTokenError')
+            // if (err.name === 'NotBeforeError')
+
+            return res.status(401).send({ errMsg: 'Unauthorized' });
+        }
+    },
+
+    /**
+     * Verifies the token in the request query
+     */
+    verifyQueryToken: async (req, res, next) => {
+        const { token } = req.query;
+
+        try {
+            const userData = await jwt.verifyPromise(token)
+            req.user = userData;
+            next();
+        } catch (err) {
+            console.log(err);
+
+            // if (err.name === 'TokenExpiredError') // JWT Expired
+            // if (err.name === 'JsonWebTokenError')
+            // if (err.name === 'NotBeforeError')
+            
+            return res.status(401).send({ errMsg: 'Unauthorized' });
+        }
     },
 
     /**
@@ -26,7 +48,7 @@ const tokenMw = {
      * depending on the list given
      * @param {string|array} list
      */
-    hasAccess: (list) => {
+    hasAccess: list => {
         return (req, res, next) => {
             if (typeof(list) === 'string') {
                 list = [ list ];
