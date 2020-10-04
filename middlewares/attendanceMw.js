@@ -1,4 +1,5 @@
 const Ajv = require('ajv');
+const db = require('../db');
 let ajv = new Ajv({
     allErrors: true
 });
@@ -38,6 +39,39 @@ const attendanceMw = {
 
         next();
     },
+
+    /**
+     * Check if the checker/organizer is assigned to event 
+     */
+    checkAssignments: async (req, res, next) => {
+        const { eventID } = req.body;
+
+        try {
+            const queryAssignment = {
+                text: `
+                    SELECT  *
+                    FROM    assignments
+                    WHERE   checker_id = $1
+                        AND event_id = $2
+                    LIMIT   1;
+                `,
+                values: [ req.user.userID, eventID ]
+            };
+
+            const { rowCount } = await db.query(queryAssignment);
+            if (rowCount === 0) {
+                return res.status(403).send({ errMsg: 'You\'re not a checker in this event' });
+            }
+            
+            next();
+        } catch (err) {
+            console.log(err);
+
+
+            
+            return res.status(500).end();
+        }
+    }
 };
 
 module.exports = attendanceMw;

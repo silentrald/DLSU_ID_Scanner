@@ -38,7 +38,7 @@ const userAPI = {
             }
 
             const token = await jwt.signPromise({
-                                    userId: user.user_id,
+                                    userID: user.user_id,
                                     username: user.username,
                                     access: user.access,
                                 }, {

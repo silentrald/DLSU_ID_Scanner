@@ -20,17 +20,29 @@ router.post('/enter/:eventID/:serialID',
     mw.verifyToken,
     mw.hasAccess([ ORGANIZER, CHECKER ]),
     mw.validateParamEventAndStudentID,
+    mw.checkAssignments,
     api.postMarkEntranceAttendance
 );
 
+// PATCH
 /**
  * Marks a student's exit to an event
  */
-router.post('/exit/:eventID/:serialID',
+router.patch('/exit/:eventID/:serialID',
     mw.verifyToken,
     mw.hasAccess([ ORGANIZER, CHECKER ]),
     mw.validateParamEventAndStudentID,
-    api.postMarkExitAttendance
+    mw.checkAssignments,
+    api.patchMarkExitAttendance
+);
+
+// DELETE
+router.delete('/delete/:eventID/:serialID',
+    mw.verifyToken,
+    mw.hasAccess([ ORGANIZER, CHECKER ]),
+    mw.validateParamEventAndStudentID,
+    mw.checkAssignments,
+    api.deleteAttendance
 );
 
 module.exports = router;

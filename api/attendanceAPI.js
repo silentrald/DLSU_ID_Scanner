@@ -1,3 +1,4 @@
+const { restart } = require('nodemon');
 const db = require('../db');
 const jwt = require('../modules/jwt');
 
@@ -56,7 +57,8 @@ const attendanceAPI = {
         }
     },
 
-    postMarkExitAttendance: async (req, res) => {
+    // PATCH
+    patchMarkExitAttendance: async (req, res) => {
         const { eventID, serialID } = req.params;
         let student;
 
@@ -118,6 +120,33 @@ const attendanceAPI = {
             return res.status(401).send({ errMsg: 'Unauthorized' });
         }
     },
+
+    // DELETE
+    deleteAttendance: async (req, res) => {
+        const { eventID, serialID } = req.params;
+
+        try {
+            const queryDelAttendance = {
+                text: `
+                    DELETE FROM attendances
+                    WHERE   event_id = $1
+                        AND serial_id = $2;
+                `,
+                values: [ eventID, serialID ]
+            };
+
+            const { rowCount } = await db.query(queryDelAttendance);
+            if (rowCount === 0) {
+                return res.status(400).send({ errMsg: 'Attendance was not found' });
+            }
+
+            return res.status(200).send({ msg: 'Attendance was deleted' });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
+
 };
 
 module.exports = attendanceAPI;
