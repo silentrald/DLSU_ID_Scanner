@@ -25,8 +25,8 @@ const tokenMw = {
     /**
      * Verifies the token in the request query
      */
-    verifyQueryToken: async (req, res, next) => {
-        const { token } = req.query;
+    verifyHeaderToken: async (req, res, next) => {
+        const { token } = req.headers;
 
         try {
             const userData = await jwt.verifyPromise(token)

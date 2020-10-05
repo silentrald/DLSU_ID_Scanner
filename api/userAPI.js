@@ -24,7 +24,7 @@ const userAPI = {
             
             const resultUser = await db.query(queryUser);
 
-            if (resultUser.rowCount === 0) {
+            if (resultUser.rowCount < 1) {
                 return res.status(401).send({ errMsg: 'Auth Failed' });
             }
                 

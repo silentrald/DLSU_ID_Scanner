@@ -26,7 +26,7 @@ const attendanceAPI = {
             };
 
             const resultStudent = await db.query(queryStudent);
-            if (resultStudent.rowCount === 0) {
+            if (resultStudent.rowCount < 1) {
                 // The ID is not in the database so the user must create an account
                 // before getting marked in the event
                 return res.status(200).send({ msg: 'ID has not been registered', create: true });
@@ -75,7 +75,7 @@ const attendanceAPI = {
             };
 
             const resultStudent = await db.query(queryStudent);
-            if (resultStudent.rowCount === 0) {
+            if (resultStudent.rowCount < 1) {
                 return res.status(200).send({ msg: 'ID has not been registered' });
             }
             student = resultStudent.rows[0];
@@ -93,7 +93,7 @@ const attendanceAPI = {
             };
 
             const resultAttendance = await db.query(queryAttendance);
-            if (resultAttendance.rowCount === 0) {
+            if (resultAttendance.rowCount < 1) {
                 return res.status(200).send({ msg: 'ID has not entered the event' });
             }
 
@@ -136,7 +136,7 @@ const attendanceAPI = {
             };
 
             const { rowCount } = await db.query(queryDelAttendance);
-            if (rowCount === 0) {
+            if (rowCount < 1) {
                 return res.status(400).send({ errMsg: 'Attendance was not found' });
             }
 

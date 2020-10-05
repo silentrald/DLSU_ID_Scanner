@@ -2,6 +2,7 @@ const Ajv = require('ajv');
 let ajv = new Ajv({
     allErrors: true
 });
+require('ajv-keywords')(ajv, ['transform']);
 
 const STUDENT_BODY_SCHEMA = 'a';
 const SERIAL_ID_PARAM_SCHEMA = 'b';
@@ -20,11 +21,13 @@ ajv.addSchema({
             type: 'string',
             minLength: 1,
             maxLength: 30,
+            transform: [ 'trim' ],
         },
         lname: {
             type: 'string',
             minLength: 1,
             maxLength: 30,
+            transform: [ 'trim' ],
         },
     },
     required: [
@@ -54,11 +57,13 @@ ajv.addSchema({
             type: 'string',
             minLength: 1,
             maxLength: 30,
+            transform: [ 'trim' ],
         },
         lname: {
             type: 'string',
             minLength: 1,
             maxLength: 30,
+            transform: [ 'trim' ]
         },
     },
     required: [

@@ -37,40 +37,6 @@ const assignmentMw = {
 
         next();
     },
-
-    /**
-     * Check if the organizer account is the one
-     * who made the event
-     */
-    isEventOrganizer: async (req, res, next) => {
-        const { eventID } = req.params;
-
-        try {
-            const queryEvent = {
-                text: `
-                    SELECT  organizer_id
-                    FROM    events
-                    WHERE   event_id = $1;
-                `,
-                values: [ eventID ]
-            };
-
-            const resultEvent = await db.query(queryEvent);
-            if (resultEvent.rowCount === 0) {
-                return res.status(403).send({ errMsg: 'Event does not exist' });
-            }
-
-            if (resultEvent.rows[0].organizer_id !== req.user.userID) {
-                return res.status(403).send({ errMsg: 'You\'re not the organizer of the event' });
-            }
-
-            next();
-        } catch (err) {
-            console.log(err);
-
-            return res.status(500).end();
-        }
-    },
 };
 
 module.exports = assignmentMw;

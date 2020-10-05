@@ -5,7 +5,7 @@ const assignmentAPI = {
     getAllAssignments: async (req, res) => {
         const { userID } = req.params;
 
-        if (userID !== req.user.userID) {
+        if (parseInt(userID) !== req.user.userID) {
             return res.status(403).send({ errMsg: 'Forbidden' });
         }
 

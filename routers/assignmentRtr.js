@@ -3,6 +3,7 @@ const api       = require('../api/assignmentAPI');
 const mw = {
     ...require('../middlewares/tokenMw'),
     ...require('../middlewares/assignmentMw'),
+    ...require('../middlewares/eventMw'), // isEventOrganizer
 };
 
 const {
@@ -14,7 +15,7 @@ const {
  * Get all assignment event from the checker/organizer id
  */
 router.get('/all/:userID', 
-    mw.verifyQueryToken,
+    mw.verifyHeaderToken,
     api.getAllAssignments);
 
 // POST

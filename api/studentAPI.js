@@ -57,7 +57,7 @@ const studentAPI = {
             };
 
             const { rowCount } = await db.query(queryUpStudent);
-            if (rowCount === 0) {
+            if (rowCount < 1) {
                 return res.status(400).send({ errMsg: 'Student not found' });
             }
 
@@ -82,7 +82,7 @@ const studentAPI = {
             };
             const { rowCount } = await db.query(queryDelStudent);
 
-            if (rowCount === 0) { // no student was deleted
+            if (rowCount < 1) { // no student was deleted
                 return res.status(400).send({ errMsg: 'Student not found' });
             }
 
