@@ -19,7 +19,7 @@ router.get('/all/:userID',
     api.getAllAssignments);
 
 // POST
-router.post('/create/:eventID/:checkerID',
+router.post('/create/:eventID/:userID',
     mw.verifyToken,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventAndCheckerID,

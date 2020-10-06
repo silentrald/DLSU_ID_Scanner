@@ -14,16 +14,16 @@ ajv.addSchema({
             maxLength: 11,
             pattern: '^[a-zA-Z0-9]$',
         },
-        checkerID: {
+        userID: {
             type: 'integer',
         }
     },
-    required: [ 'eventID', 'checkerID' ]
+    required: [ 'eventID', 'userID' ]
 }, EVENT_CHECKER_ID_PARAMS_SCHEMA);
 
 const assignmentMw = {
     /**
-     * Validate if event and checker id in the
+     * Validate if event and user id in the
      * request body is in a valid format
      */
     validateEventAndCheckerID: (req, res, next) => {

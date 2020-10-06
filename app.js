@@ -15,13 +15,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // API ROUTERS
-const userRtr       = require('./routers/userRtr');
-const studentRtr    = require('./routers/studentRtr');
-const eventRtr      = require('./routers/eventRtr');
-const attendanceRtr = require('./routers/attendanceRtr');
-const assignmentRtr = require('./routers/assignmentRtr');
+const userRtr           = require('./routers/userRtr');
+const checkerRtr        = require('./routers/checkerRtr');
+const studentRtr        = require('./routers/studentRtr');
+const eventRtr          = require('./routers/eventRtr');
+const attendanceRtr     = require('./routers/attendanceRtr');
+const assignmentRtr     = require('./routers/assignmentRtr');
 
 app.use('/api/user', userRtr);
+app.use('/api/checker', userRtr);
 app.use('/api/student', studentRtr);
 app.use('/api/event', eventRtr);
 app.use('/api/attendance', attendanceRtr);

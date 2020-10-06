@@ -1,10 +1,10 @@
 const db = require('../db');
 
 const studentAPI = {
+    // GET
+    
+
     // POST
-    /**
-     * Creates a new student in the database
-     */
     postCreateStudent: async (req, res) => {
         const { serialID, fname, lname } = req.body;
 

@@ -5,6 +5,16 @@ const mw = {
     ...require('../middlewares/userMw'),
 };
 
+const {
+    ADMIN,
+    ORGANIZER,
+    CHECKER
+} = require('../constant').ACCESS;
+
+// GET
+
+
+// POST
 /**
  * Login and returns a token to the user.
  * Request body must contain a username and a password
@@ -21,5 +31,18 @@ router.post('/verify',
     mw.verifyToken,
     api.postVerify
 );
+
+// PATCH
+/**
+ * Change Password
+ */
+router.patch('/password-change/:userID',
+    mw.verifyToken,
+    mw.validateUserIDParams,
+    mw.validatePasswords,
+    api.patchChangePassword
+);
+
+// DELETE
 
 module.exports = router;

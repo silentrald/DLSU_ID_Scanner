@@ -4,6 +4,9 @@ const jwt = require('../modules/jwt');
 
 const attendanceAPI = {
     // GET
+    getAttendance: async (req, res) => {
+
+    },
 
     // POST
     postMarkEntranceAttendance: async (req, res) => {

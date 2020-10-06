@@ -17,7 +17,7 @@ const assignmentAPI = {
                     WHERE   event_id IN (
                         SELECT  event_id
                         FROM    assignments
-                        WHERE   checker_id = $1
+                        WHERE   user_id = $1
                     );
                 `,
                 values: [ userID ]
@@ -35,15 +35,15 @@ const assignmentAPI = {
 
     // POST
     postAssignChecker: async (req, res) => {
-        const { eventID, checkerID } = req.body;
+        const { eventID, userID } = req.body;
 
         try {
             const queryInsAssignment = {
                 text: `
-                    INSERT INTO assignments(event_id, checker_id)
+                    INSERT INTO assignments(event_id, user_id)
                         VALUES($1, $2);
                 `,
-                values: [ eventID, checkerID ]
+                values: [ eventID, userID ]
             };
 
             await db.query(queryInsAssignment);
