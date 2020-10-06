@@ -62,6 +62,39 @@ const userAPI = {
         return res.status(200).send(req.user);
     },
 
+    postCreateOrganizer: async (req, res) => {
+        const {
+            username,
+            password
+        } = req.body;
+        
+        try {
+            const queryInsOrganizer = {
+                text: `
+                    INSERT INTO users(username, password, access)
+                        VALUES($1, $2, $3);
+                `,
+                values: [
+                    username,
+                    password,
+                    'o'
+                ]
+            };
+            await db.query(queryInsOrganizer);
+
+            return res.status(201).send({ msg: 'Organizer User Created' });
+        } catch (err) {
+            console.log(err);
+
+            // duplicate username error
+            if (err.code === '23505' && err.constraint === 'users_username_key') {
+                return res.status(403).send({ errMsg: 'Username is already in use, choose another one' });
+            }
+
+            return res.status(500).end();
+        }
+    },
+
     // PATCH
     patchChangePassword: async (req, res) => {
         const { password } = req.body;
@@ -119,7 +152,30 @@ const userAPI = {
     },
 
     // DELETE
-    
+    deleteOrganizer: async (req, res) => {
+        const { userID } = req.params;
+
+        try {
+            const queryDelUser = {
+                text: `
+                    DELETE FROM organizers
+                    WHERE   user_id = $1
+                        AND access = $2;
+                `,
+                values: [ userID, 'o' ]
+            };
+
+            const { rowCount } = await db.query(queryDelUser);
+            if (rowCount < 1) {
+                return res.render(403).send({ errMsg: 'You cannot delete the user' });
+            }
+
+            return res.render(200).send({ msg: 'Organizer User has been deleted' });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
 };
 
 module.exports = userAPI;

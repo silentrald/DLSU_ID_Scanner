@@ -25,8 +25,9 @@ router.post('/create',
 router.delete('/delete/:checkerID',
     mw.verifyToken,
     mw.hasAccess([ ORGANIZER ]),
+    mw.validateUserIDParams,
     mw.isOrganizerAssigned,
-
+    api.deleteChecker
 );
 
 module.exports = router;

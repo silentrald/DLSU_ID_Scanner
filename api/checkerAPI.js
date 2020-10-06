@@ -33,7 +33,7 @@ const checkerAPI = {
                 };
                 const resultUser = await client.query(queryInsUser);
                 
-                const queryInsCheckerUser = {
+                const queryInsChecker = {
                     text: `
                         INSERT INTO checker_users(user_id, organizer_assigned)
                             VALUES($1, $2);
@@ -43,7 +43,7 @@ const checkerAPI = {
                         req.user.userID
                     ]
                 };
-                await client.query(queryInsCheckerUser);
+                await client.query(queryInsChecker);
 
                 await client.query('COMMIT');
             } catch (err) {
@@ -81,7 +81,7 @@ const checkerAPI = {
                 const queryDelCheckerUser = {
                     text: `
                         DELETE FROM checker_users
-                        WHERE user_id = $1; 
+                        WHERE   user_id = $1; 
                     `,
                     values: [ userID ]
                 };

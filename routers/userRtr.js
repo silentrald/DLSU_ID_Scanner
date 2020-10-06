@@ -32,6 +32,16 @@ router.post('/verify',
     api.postVerify
 );
 
+/**
+ * Creates an organizer user with the admin account
+ */
+router.post('/organizer/create',
+    mw.verifyToken,
+    mw.hasAccess([ ADMIN ]),
+    mw.validateUserInfo,
+    api.postCreateOrganizer
+);
+
 // PATCH
 /**
  * Change Password
@@ -44,5 +54,11 @@ router.patch('/password-change/:userID',
 );
 
 // DELETE
+router.delete('/organizer/:userID',
+    mw.verifyToken,
+    mw.hasAccess([ ADMIN ]),
+    mw.validateUserIDParams,
+    api.deleteOrganizer
+);
 
 module.exports = router;
