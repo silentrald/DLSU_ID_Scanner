@@ -4,6 +4,7 @@ const mw = {
     ...require('../middlewares/tokenMw'),
     ...require('../middlewares/assignmentMw'),
     ...require('../middlewares/eventMw'), // isEventOrganizer
+    ...require('../middlewares/userMw'), // isOrganizerAssigned
 };
 
 const {
@@ -24,6 +25,8 @@ router.post('/create/:eventID/:userID',
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventAndCheckerID,
     mw.isEventOrganizer,
+    mw.isExistingUser,
+    mw.isOrganizerAssigned,
     api.postAssignChecker);
 
 module.exports = router;

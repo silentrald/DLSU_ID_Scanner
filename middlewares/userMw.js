@@ -158,6 +158,35 @@ const userMw = {
     },
 
     /**
+     * Check whether the user exists in the db
+     */
+    isExistingUser: async (req, res, next) => {
+        const { userID } = req.params;
+
+        try {
+            const queryUser = {
+                text: `
+                    SELECT  *
+                    FROM    users
+                    WHERE   user_id = $1
+                    LIMIT   1;
+                `,
+                values: [ userID ]
+            };
+            const { rowCount } = await db.query(queryUser);
+
+            if (rowCount < 1) {
+                return res.status(403).send({ errMsg: 'User does not exist' });
+            }
+
+            next();
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
+
+    /**
      * Validate if the checker account is under the organizer
      */
     isOrganizerAssigned: async (req, res, next) => {

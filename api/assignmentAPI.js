@@ -1,5 +1,9 @@
 const db = require('../db');
 
+const {
+    CHECKER
+} = require('../constant').ACCESS;
+
 const assignmentAPI = {
     // GET
     getAllAssignments: async (req, res) => {
@@ -50,6 +54,12 @@ const assignmentAPI = {
             return res.status(201).send({ msg: 'Checker was assigned to the event' });
         } catch (err) {
             console.log(err);
+
+            // TODO: if user_id is not in the users table
+
+            // TODO: if user is already assigned to the event
+            // return res.status(403).send({ errMsg: 'Checker is already assigned to the event' });
+
             return res.status(500).end();
         }
     },
