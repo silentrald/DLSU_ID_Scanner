@@ -39,14 +39,8 @@ beforeAll(async () => {
 
 describe('/api/attendance', () => {
     describe('/api/attendance/enter/:eventID/:serialID', () => {
-        test('Valid Mark Attendance with checker account', async (done) => {
+        test('Mark Enter Attendance with checker account', async (done) => {
             try {
-                // await db.query(`
-                //     DELETE FROM attendances
-                //     WHERE   event_id = $1
-                //         AND student_id = $2;
-                // `, [ eventID, serialID ]);
-
                 const res = await got.post(`${URL}/enter/${eventID}/${serialID}`, {
                     json: { token: checkerToken },
                     responseType: 'json',
@@ -63,16 +57,16 @@ describe('/api/attendance', () => {
                     })
                 );
 
-                // await db.query(`
-                //     DELETE FROM attendances
-                //     WHERE   event_id = $1
-                //         AND student_id = $2;
-                // `, [ eventID, serialID ]);
-
                 done();
             } catch (err) {
                 done(err);
             }
         });
-    })
+    });
+
+    describe('/api/attendace/exit/:eventID/:serialID', () => {
+        test('Mark Exit Attendance with checker account', async (done) => {
+
+        });
+    });
 });
