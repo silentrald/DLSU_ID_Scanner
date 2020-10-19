@@ -6,6 +6,10 @@ const mw = {
     ...require('../middlewares/checkerMw'),
 };
 
+const {
+    ORGANIZER
+} = require('../constant').ACCESS;
+
 // GET
 
 // POST

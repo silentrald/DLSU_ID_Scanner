@@ -45,9 +45,10 @@ const userAPI = {
                                     expiresIn: 60 * 60, // 1 hr 
                                 });
         
-            return res.status(200).send({ 
+            return res.status(200).send({
                 token,
                 user: {
+                    userID: user.user_id,
                     username: user.username,
                     access: user.access,
                 },
@@ -133,7 +134,7 @@ const userAPI = {
                 text: `
                     UPDATE  users
                     SET     password = $1
-                    WHERE   userID = $2;   
+                    WHERE   user_id = $2;   
                 `,
                 values: [ hash, req.user.userID ]
             };

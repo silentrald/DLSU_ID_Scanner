@@ -14,7 +14,7 @@ const checkerAPI = {
         try {
             const hash = await bcrypt.hashSalt(password);
 
-            const client = db.connect();
+            const client = await db.connect();
 
             try {
                 await client.query('BEGIN');
@@ -73,7 +73,7 @@ const checkerAPI = {
         const { userID } = req.params;
 
         try {
-            const client = db.connect();
+            const client = await db.connect();
             
             try {
                 await client.query('BEGIN');

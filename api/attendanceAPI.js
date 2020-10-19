@@ -13,10 +13,9 @@ const attendanceAPI = {
         const { eventID, serialID } = req.params;
         let student;
 
+        console.log(`Enter ID: ${serialID}`);
+
         try {
-        
-            console.log(`ID: ${serialID}`);
-        
             // Check if the ID is in the database
             const queryStudent = {
                 text: `
@@ -45,7 +44,7 @@ const attendanceAPI = {
             };
      
             await db.query(queryInsAttendance);
-            return res.status(200).send({
+            return res.status(201).send({
                 msg: `Enter Attendance marked for ${student.fname} ${student.lname}`,
                 create: false
             });
@@ -56,7 +55,7 @@ const attendanceAPI = {
                 return res.status(200).send({ msg: 'Enter Attendance already marked', create: false });
             }
 
-            return res.status(401).send({ errMsg: 'Unauthorized' });
+            return res.status(500).end();
         }
     },
 
@@ -64,6 +63,8 @@ const attendanceAPI = {
     patchMarkExitAttendance: async (req, res) => {
         const { eventID, serialID } = req.params;
         let student;
+
+        console.log(`Exit ID: ${serialID}`);
 
         try {
             // Check if the ID is in the database
@@ -89,7 +90,7 @@ const attendanceAPI = {
                     SELECT  exit_timestamp
                     FROM    attendances
                     WHERE   event_id = $1
-                        AND serial_id = $2
+                        AND student_id = $2
                     LIMIT   1;
                 `,
                 values: [ eventID, serialID ]
@@ -109,9 +110,9 @@ const attendanceAPI = {
             const queryUpAttendance = {
                 text: `
                     UPDATE  attendances
-                    SET     exit = now()
+                    SET     exit_timestamp = now()
                     WHERE   event_id = $1
-                        AND serial_id = $2;
+                        AND student_id = $2;
                 `,
                 values: [ eventID, serialID ]
             };
@@ -120,7 +121,7 @@ const attendanceAPI = {
         } catch (err) {
             console.log(err);
             
-            return res.status(401).send({ errMsg: 'Unauthorized' });
+            return res.status(500).end();
         }
     },
 

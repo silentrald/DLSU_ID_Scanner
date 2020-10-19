@@ -23,7 +23,7 @@ const attendanceRtr     = require('./routers/attendanceRtr');
 const assignmentRtr     = require('./routers/assignmentRtr');
 
 app.use('/api/user', userRtr);
-app.use('/api/checker', userRtr);
+app.use('/api/checker', checkerRtr);
 app.use('/api/student', studentRtr);
 app.use('/api/event', eventRtr);
 app.use('/api/attendance', attendanceRtr);

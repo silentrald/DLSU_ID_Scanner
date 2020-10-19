@@ -8,18 +8,32 @@ const mw = {
 };
 
 const {
+    CHECKER,
     ORGANIZER
 } = require('../constant').ACCESS;
 
 // GET
 /**
- * Get all assignment event from the checker/organizer id
+ * Get all assignment event from the checker id
  */
-router.get('/all/:userID', 
+router.get('/all/checker/:userID',
     mw.verifyHeaderToken,
+    mw.hasAccess([ CHECKER ]),
     api.getAllAssignments);
 
+/**
+ * Get all created events by the organizer id 
+ */
+router.get('/all/organizer/:userID',
+    mw.verifyHeaderToken,
+    mw.hasAccess([ ORGANIZER ]),
+    api.getAllAssignments);
+
+
 // POST
+/**
+ * Assigns a checker to an event
+ */
 router.post('/create/:eventID/:userID',
     mw.verifyToken,
     mw.hasAccess([ ORGANIZER ]),
