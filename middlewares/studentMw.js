@@ -18,7 +18,9 @@ ajv.addSchema({
             pattern: '^[0-9a-f]*$',
         },
         studentID: {
-            type: 'integer'
+            type: 'integer',
+            minimum: 10000000,
+            maximum: 99999999,
         },
         fname: {
             type: 'string',
@@ -76,6 +78,17 @@ ajv.addSchema({
     ]
 }, STUDENT_EDIT_BODY_SCHEMA)
 
+//Checker for valid DLSU ID
+const validateID = studentID => {
+    let accumulator = 0;
+    for (let i = 1; i < 9; i++) {
+        accumulator += studentID % 10 * i;
+        accumulator %= 11;
+        studentID = Math.floor(studentID / 10)
+    }
+    return accumulator === 0;
+};
+
 const studentMw = {
     /**
      * Validates the student info passed in the body
@@ -83,16 +96,6 @@ const studentMw = {
      */
     validateStudentInfo: (req, res, next) => {
         const valid = ajv.validate(STUDENT_BODY_SCHEMA, req.body);
-
-        const validateID = studentID => {
-            let accumulator = 0;
-            for (let i = 1; i < 9; i++) {
-                accumulator += studentID % 10 * i;
-                accumulator %= 11;
-                studentID = Math.floor(studentID / 10)
-            }
-            return accumulator === 0;
-        };
 
         if (!valid) {
             console.log(ajv.errors);
