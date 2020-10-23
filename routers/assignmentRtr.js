@@ -16,19 +16,10 @@ const {
 /**
  * Get all assignment event from the checker id
  */
-router.get('/all/checker/:userID',
+router.get('/all/:userID',
     mw.verifyHeaderToken,
     mw.hasAccess([ CHECKER ]),
     api.getAllAssignments);
-
-/**
- * Get all created events by the organizer id 
- */
-router.get('/all/organizer/:userID',
-    mw.verifyHeaderToken,
-    mw.hasAccess([ ORGANIZER ]),
-    api.getAllAssignments);
-
 
 // POST
 /**
