@@ -18,7 +18,7 @@ const {
  */
 router.get('/all/:userID',
     mw.verifyHeaderToken,
-    mw.hasAccess([ CHECKER ]),
+    mw.hasAccess([ CHECKER, ORGANIZER ]),
     api.getAllAssignments);
 
 // POST
