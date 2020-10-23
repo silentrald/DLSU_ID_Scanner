@@ -55,7 +55,7 @@ const userAPI = {
             });
         } catch (err) {
             console.log(err);
-            return res.send(401).send({ errMsg: 'Auth Failed' });
+            return res.status(401).send({ errMsg: 'Auth Failed' });
         }
     },
 

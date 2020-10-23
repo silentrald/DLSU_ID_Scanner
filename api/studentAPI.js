@@ -6,17 +6,18 @@ const studentAPI = {
 
     // POST
     postCreateStudent: async (req, res) => {
-        const { serialID, fname, lname } = req.body;
+        const { serialID, studentID, fname, lname } = req.body;
 
         try {
             // Insert the student info
             const queryInsStudent = {
                 text: `
-                    INSERT INTO students(serial_id, fname, lname)
-                        VALUES($1, $2, $3);
+                    INSERT INTO students(serial_id, student_id, fname, lname)
+                        VALUES($1, $2, $3, $4);
                 `,
                 values: [
                     serialID,
+                    studentID,
                     fname,
                     lname,
                 ]

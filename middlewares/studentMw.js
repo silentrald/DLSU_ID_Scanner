@@ -17,6 +17,9 @@ ajv.addSchema({
             minLength: 8,
             pattern: '^[0-9a-f]*$',
         },
+        studentID: {
+            type: 'integer'
+        },
         fname: {
             type: 'string',
             minLength: 1,
@@ -32,6 +35,7 @@ ajv.addSchema({
     },
     required: [
         'serialID',
+        'studentID',
         'fname',
         'lname'
     ]
@@ -80,10 +84,27 @@ const studentMw = {
     validateStudentInfo: (req, res, next) => {
         const valid = ajv.validate(STUDENT_BODY_SCHEMA, req.body);
 
+        const validateID = studentID => {
+            let accumulator = 0;
+            for (let i = 1; i < 9; i++) {
+                accumulator += studentID % 10 * i;
+                accumulator %= 11;
+                studentID = Math.floor(studentID / 10)
+            }
+            return accumulator === 0;
+        };
+
         if (!valid) {
             console.log(ajv.errors);
             // TODO: Clean the ajv error
             return res.status(403).send({ error: ajv.errors });
+            
+        } 
+
+        //Check studentID 
+        if (!validateID(req.body.studentID)) {
+            console.log("Invalid student ID");
+            return res.status(403).send({ error: "Invalid student ID" });
         }
 
         next();
