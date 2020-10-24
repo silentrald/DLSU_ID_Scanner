@@ -42,19 +42,13 @@ ajv.addSchema({
         eventOrg: {
             type: 'string',
             maxLength: 10,
-        },
-        organizerID: {
-            type: 'integer',
-            minimum: 0,
         }
     },
     required: [
         'eventName',
-        'eventDate',
         'startDate',
         'endDate',
-        'eventOrg',
-        'organizerID',
+        'eventOrg'
     ],
 }, EVENT_INFO_BODY_SCHEMA);
 
@@ -111,18 +105,18 @@ const eventMw = {
         const valid = ajv.validate(EVENT_INFO_BODY_SCHEMA, req.body);
 
         if (!valid) {
-            console.log(ajv.errors);
+            console.log(ajv.errors.map(error => error.message));
             // TODO: clean
-            return res.status(403).send({ error: ajv.errors });
+            return res.status(403).send({ error: ajv.errors.map(error => error.message) });
         }
-
         // check if valid dates
         const { startDate, endDate } = req.body;
+
         if (date.compareToNow(startDate) < 0) {
             return res.status(403).send({ error: 'Start Date should not be a date before today' });
         }
 
-        if (date.compareDates(startDate, endDate) < 0) {
+        if (date.compareDates(endDate, startDate) < 0) {
             return res.status(403).send({ error: 'End Date should not be a date before the Start Date' });
         }
 
