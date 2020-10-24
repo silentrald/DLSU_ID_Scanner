@@ -48,8 +48,7 @@ ajv.addSchema({
         'eventName',
         'startDate',
         'endDate',
-        'eventOrg',
-        'user',
+        'eventOrg'
     ],
 }, EVENT_INFO_BODY_SCHEMA);
 
