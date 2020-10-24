@@ -45,22 +45,53 @@ const eventAPI = {
             return res.status(403).send({ errMsg: 'Forbidden' });
         }
 
+        //Start transaction
         try {
-            const queryInsEvent = {
-                text: `
-                    INSERT INTO events(event_id, event_name, start_date, end_date, event_org, organizer_id)
-                        VALUES(event_id(), $1, $2, $3, $4, $5);
-                `,
-                values: [
-                    eventName,
-                    startDate,
-                    endDate,
-                    eventOrg,
-                    organizerID
-                ]
+            const client = await db.connect();
+
+            try {
+                client.query('BEGIN');
+                //Create the event
+                const queryInsEvent = {
+                    text: `
+                        INSERT INTO events(event_id, event_name, start_date, end_date, event_org, organizer_id)
+                            VALUES(event_id(), $1, $2, $3, $4, $5)
+                            RETURNING event_id;
+                    `,
+                    values: [
+                        eventName,
+                        startDate,
+                        endDate,
+                        eventOrg,
+                        organizerID
+                    ]
+                }
+
+                const resEvent = await client.query(queryInsEvent);
+
+                //Create assignee
+                const queryInsAssign = {
+                    text: `
+                        INSERT INTO assignments(user_id, event_id)
+                            VALUES($1, $2);
+                    `,
+                    values: [
+                        organizerID,
+                        resEvent.rows[0].event_id,
+                    ]
+                }
+
+                await client.query(queryInsAssign);
+
+                await client.query('COMMIT');
+            } catch (err) {
+                //Rollback incase either query fails
+                await client.query('ROLLBACK');
+                throw err;
+            } finally {
+                client.release();
             }
 
-            await db.query(queryInsEvent);
             return res.status(201).send({ msg: 'Event was created' });
         } catch (err) {
             console.log(err);

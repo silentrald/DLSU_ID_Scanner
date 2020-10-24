@@ -13,8 +13,10 @@ const {
 // GET
 router.get('/:eventID',
     // mw.verifyHeaderToken,
-    mw.validateEventIDParams,
     // mw.isEventOrganizer,
+    mw.verifyToken,
+    mw.hasAccess([ ORGANIZER ]),
+    mw.validateEventIDParams,
     api.getEvent
 );
 
