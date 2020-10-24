@@ -8,7 +8,7 @@ const mw = {
 
 const {
     ORGANIZER
-} = require('../constant');
+} = require('../constant').ACCESS;
 
 // GET
 router.get('/:eventID',

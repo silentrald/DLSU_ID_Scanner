@@ -36,8 +36,10 @@ const eventAPI = {
             startDate,
             endDate,
             eventOrg,
-            organizerID
+            user
         } = req.body;
+
+        organizerID = user.userID;
 
         if (organizerID !== req.user.userID) {
             return res.status(403).send({ errMsg: 'Forbidden' });
@@ -46,8 +48,8 @@ const eventAPI = {
         try {
             const queryInsEvent = {
                 text: `
-                    INSERT INTO events(event_name, start_date, end_date, event_org, organizer_id)
-                        VALUES($1, $2, $3, $4, $5);
+                    INSERT INTO events(event_id, event_name, start_date, end_date, event_org, organizer_id)
+                        VALUES(event_id(), $1, $2, $3, $4, $5);
                 `,
                 values: [
                     eventName,
