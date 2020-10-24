@@ -12,8 +12,6 @@ const {
 
 // GET
 router.get('/:eventID',
-    // mw.verifyHeaderToken,
-    // mw.isEventOrganizer,
     mw.verifyToken,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,

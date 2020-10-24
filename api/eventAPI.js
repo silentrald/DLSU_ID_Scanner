@@ -17,7 +17,7 @@ const eventAPI = {
             };
 
             const resultEvent = await db.query(queryEvent);
-
+            console.log(resultEvent)
             if (resultEvent.rowCount < 1) {
                 return res.status(400).send({ errMsg: 'No Event Found' });
             }
