@@ -42,12 +42,6 @@ ajv.addSchema({
         eventOrg: {
             type: 'string',
             maxLength: 10,
-        },
-        user: {
-            userID : {
-                type: 'integer',
-                minimum: 0,
-            }
         }
     },
     required: [

@@ -35,15 +35,8 @@ const eventAPI = {
             eventName,
             startDate,
             endDate,
-            eventOrg,
-            user
+            eventOrg
         } = req.body;
-
-        organizerID = user.userID;
-
-        if (organizerID !== req.user.userID) {
-            return res.status(403).send({ errMsg: 'Forbidden' });
-        }
 
         //Start transaction
         try {
@@ -63,7 +56,7 @@ const eventAPI = {
                         startDate,
                         endDate,
                         eventOrg,
-                        organizerID
+                        req.user.userID
                     ]
                 }
 
@@ -76,7 +69,7 @@ const eventAPI = {
                             VALUES($1, $2);
                     `,
                     values: [
-                        organizerID,
+                        req.user.userID,
                         resEvent.rows[0].event_id,
                     ]
                 }
