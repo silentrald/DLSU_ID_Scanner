@@ -12,12 +12,20 @@ const {
 
 // GET
 router.get('/:eventID',
-    // mw.verifyHeaderToken,
-    // mw.isEventOrganizer,
-    mw.verifyToken,
+    mw.verifyHeaderToken,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,
     api.getEvent
+);
+
+// GET
+/**
+ * Gets all events created/assigned to the organizer logged in 
+ */
+router.get('/all/:userID',
+    mw.verifyHeaderToken,
+    mw.hasAccess([ ORGANIZER ]),
+    api.getAllMyEvents
 );
 
 // POST

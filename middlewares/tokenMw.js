@@ -65,7 +65,7 @@ const tokenMw = {
                 console.log('CHECK ROUTE, forgot to add token verification'); 
                 return res.status(500).end();
             }
-            
+
             if (!list.includes(req.user.access))
                 return res.status(403).send({ errMsg: 'Forbidden' });
             

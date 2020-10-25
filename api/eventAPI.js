@@ -29,6 +29,40 @@ const eventAPI = {
         }
     },
 
+    // GET
+    /**
+     * Gets all events created/assigned to the organizer logged in 
+     */
+    getAllMyEvents: async (req, res) => {
+        const { userID } = req.params;
+        
+        if (userID != req.user.userID) {
+            return res.status(403).send({ errMsg: 'Forbidden' });
+        }
+
+        try {
+            const queryEvents = {
+                text: `
+                    SELECT  *
+                    FROM    events
+                    WHERE   organizer_id = $1;
+                `,
+                values: [ userID ]
+            };
+
+            const resultEvent = await db.query(queryEvents);
+            
+            if (resultEvent.rowCount < 1) {
+                return res.status(400).send({ errMsg: 'No Events Found' });
+            }
+
+            return res.status(200).send({ event: resultEvent.rows });
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
+
     // POST
     postCreateEvent: async (req, res) => {
         const {
