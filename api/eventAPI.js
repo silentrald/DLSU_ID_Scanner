@@ -56,7 +56,7 @@ const eventAPI = {
                 return res.status(400).send({ errMsg: 'No Events Found' });
             }
 
-            return res.status(200).send({ event: resultEvent.rows});
+            return res.status(200).send({ event: resultEvent.rows });
         } catch (err) {
             console.log(err);
             return res.status(500).end();

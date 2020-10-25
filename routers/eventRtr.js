@@ -12,7 +12,7 @@ const {
 
 // GET
 router.get('/:eventID',
-    mw.verifyToken,
+    mw.verifyHeaderToken,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,
     api.getEvent
@@ -23,7 +23,7 @@ router.get('/:eventID',
  * Gets all events created/assigned to the organizer logged in 
  */
 router.get('/all/:userID',
-    mw.verifyToken,
+    mw.verifyHeaderToken,
     mw.hasAccess([ ORGANIZER ]),
     api.getAllMyEvents
 );
