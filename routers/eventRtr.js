@@ -18,6 +18,16 @@ router.get('/:eventID',
     api.getEvent
 );
 
+// GET
+/**
+ * Gets all events created/assigned to the organizer logged in 
+ */
+router.get('/all/:userID',
+    mw.verifyToken,
+    mw.hasAccess([ ORGANIZER ]),
+    api.getAllMyEvents
+);
+
 // POST
 router.post('/create',
     mw.verifyToken,
