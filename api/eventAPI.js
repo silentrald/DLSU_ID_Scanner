@@ -174,20 +174,47 @@ const eventAPI = {
 
     // DELETE
     deleteEvent: async (req, res) => {
-        const { eventID } = req.body;
+        const { eventID } = req.params;
 
         try {
-            const queryDelEvent = {
-                text: `
-                    DELETE FROM events
-                    WHERE event_id = $1;
-                `,
-                values: [ eventID ]
-            };
+            const client = await db.connect();
+            
+            try{
+                //Delete assignment from ASSIGNMENTS
+                const queryDelAssign = {
+                    text: `
+                        DELETE FROM assignments
+                        WHERE event_id = $1;
+                    `,
+                    values: [ eventID ]
+                };
+                
+                await db.query(queryDelAssign);
 
-            const { rowCount } = await db.query(queryDelEvent);
-            if (rowCount < 1) {
-                return res.status(403).send({ errMsg: 'Event was not deleted' });
+                //Delete event from EVENTS
+                const queryDelEvent = {
+                    text: `
+                        DELETE FROM events
+                        WHERE event_id = $1;
+                    `,
+                    values: [ eventID ]
+                };
+                
+                //Returns the number of successfully deleted entries
+                const rowCount = await db.query(queryDelEvent);
+                console.log(rowCount);
+
+                if (rowCount < 1) {
+                    return res.status(403).send({ errMsg: 'Event was not deleted' });
+                }
+
+                await client.query('COMMIT');
+            } catch (err) {
+                //Rollback incase either query fails
+                await client.query('ROLLBACK');
+                throw err;
+            } finally {
+                client.release();
             }
 
             return res.status(200).send({ msg: 'Event Deleted' });
