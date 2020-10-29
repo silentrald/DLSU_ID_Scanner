@@ -38,12 +38,12 @@ const userAPI = {
             }
 
             const token = await jwt.signPromise({
-                                    userID: user.user_id,
-                                    username: user.username,
-                                    access: user.access,
-                                }, {
-                                    expiresIn: 60 * 60, // 1 hr 
-                                });
+                userID: user.user_id,
+                username: user.username,
+                access: user.access,
+            }, {
+                expiresIn: 60 * 60, // 1 hr 
+            });
         
             return res.status(200).send({
                 token,

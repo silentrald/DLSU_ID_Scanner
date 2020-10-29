@@ -2,7 +2,7 @@ const Ajv = require('ajv');
 let ajv = new Ajv({
     allErrors: true
 });
-const db = require('../db');
+// const db = require('../db');
 
 const EVENT_CHECKER_ID_PARAMS_SCHEMA = 'a';
 

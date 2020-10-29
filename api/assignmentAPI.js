@@ -1,8 +1,8 @@
 const db = require('../db');
 
-const {
-    CHECKER
-} = require('../constant').ACCESS;
+// const {
+//     CHECKER
+// } = require('../constant').ACCESS;
 
 const assignmentAPI = {
     // GET

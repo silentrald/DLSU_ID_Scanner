@@ -205,7 +205,7 @@ const userMw = {
                     userID,
                     req.user.userID
                 ]
-            }
+            };
 
             const resultCheckerUser = await db.query(queryCheckerUser);
             if (resultCheckerUser.rowCount < 1) {

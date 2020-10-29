@@ -12,13 +12,13 @@ ajv.addSchema({
         eventID: {
             type: 'string',
             maxLength: 11,
-            pattern: "^[a-zA-Z0-9]*$" // alphanumeric check
+            pattern: '^[a-zA-Z0-9]*$' // alphanumeric check
         },
         serialID: {
             type: 'string',
             maxLength: 8,
             minLength: 8,
-            pattern: "^[0-9a-f]*$" // hex number check
+            pattern: '^[0-9a-f]*$' // hex number check
         }
     },
     required: [ 'eventID', 'serialID' ]

@@ -1,12 +1,11 @@
-const { restart } = require('nodemon');
 const db = require('../db');
-const jwt = require('../modules/jwt');
+// const jwt = require('../modules/jwt');
 
 const attendanceAPI = {
     // GET
-    getAttendance: async (req, res) => {
+    // getAttendance: async (req, res) => {
 
-    },
+    // },
 
     // POST
     postMarkEntranceAttendance: async (req, res) => {
@@ -117,7 +116,7 @@ const attendanceAPI = {
                 values: [ eventID, serialID ]
             };
             await db.query(queryUpAttendance);
-            return res.status(200).send({ msg: `Exit Attendance marked for ${student.fname} ${student.lname}` })
+            return res.status(200).send({ msg: `Exit Attendance marked for ${student.fname} ${student.lname}` });
         } catch (err) {
             console.log(err);
             

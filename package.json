@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "npx nodemon app.js",
+    "dev": "npx nodemon app --exec \"npm run lint && node\"",
+    "lint": "npx eslint .",
     "doc": "npx jsdoc modules/bcrypt.js modules/jwt.js -d doc",
     "test": "jest"
   },
@@ -23,6 +24,8 @@
     "pg": "^8.3.3"
   },
   "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-plugin-jest": "^24.1.0",
     "jest": "^26.4.2",
     "jsdoc": "^3.6.6",
     "morgan": "^1.10.0",
