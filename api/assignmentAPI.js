@@ -36,7 +36,7 @@ const assignmentAPI = {
             res.status(403).send({ errMsg: 'Unauthorized Access' });
         }
     },
-
+    
     // POST
     postAssignChecker: async (req, res) => {
         const { eventID, userID } = req.params;
@@ -72,6 +72,31 @@ const assignmentAPI = {
             }
 
             return res.status(500).end();
+        }
+    },
+
+    // GET
+    getAllAssignmentedtoEvent: async (req, res) => {
+        const organizerID = req.user.userID;
+
+        try {
+            const queryAssignmented = {
+                text: `
+                    SELECT  user_id
+                    FROM    checker_users
+                    WHERE   organizer_assigned = $1
+                `,
+                values: [ organizerID ]
+            };
+
+            const resultAssignments = await db.query(queryAssignmented);
+            return res.status(200).send({ user_ids: resultAssignments.rows });
+
+        } catch (err) {
+            if (!err) return;
+        
+            console.log(err);
+            res.status(403).send({ errMsg: 'Unauthorized Access' });
         }
     },
 

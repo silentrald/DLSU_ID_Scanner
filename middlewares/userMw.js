@@ -256,7 +256,7 @@ const userMw = {
                 return res.status(403).send({ errMsg: 'User is not a checker' });
             
             next();
-        }
+        };
     }
 };
 
