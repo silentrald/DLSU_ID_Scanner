@@ -1,6 +1,7 @@
 const Ajv = require('ajv');
 let ajv = new Ajv({
-    allErrors: true
+    allErrors: true,
+    coerceTypes: true 
 });
 // const db = require('../db');
 
@@ -12,7 +13,7 @@ ajv.addSchema({
         eventID: {
             type: 'string',
             maxLength: 11,
-            pattern: '^[a-zA-Z0-9]$',
+            pattern: '^[a-zA-Z0-9]*$',
         },
         userID: {
             type: 'integer',
@@ -28,13 +29,13 @@ const assignmentMw = {
      */
     validateEventAndCheckerID: (req, res, next) => {
         const valid = ajv.validate(EVENT_CHECKER_ID_PARAMS_SCHEMA, req.params);
-
+        
         if (!valid) {
             console.log(ajv.errors);
             // TODO: clean errors
             return res.status(403).send({ error: ajv.errors });
         }
-
+        
         next();
     },
 };

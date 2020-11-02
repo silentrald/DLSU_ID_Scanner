@@ -19,7 +19,8 @@ const {
 router.get('/all/:userID',
     mw.verifyHeaderToken,
     mw.hasAccess([ CHECKER, ORGANIZER ]),
-    api.getAllAssignments);
+    api.getAllAssignments
+);
 
 // POST
 /**
@@ -31,7 +32,19 @@ router.post('/create/:eventID/:userID',
     mw.validateEventAndCheckerID,
     mw.isEventOrganizer,
     mw.isExistingUser,
+    mw.checkRoleParams([ CHECKER ]),
     mw.isOrganizerAssigned,
-    api.postAssignChecker);
+    api.postAssignChecker
+);
+
+// GET
+/**
+ * Get all checkers assigned to logged organizer
+ */
+router.get('/checker/assigned',
+    mw.verifyHeaderToken,
+    mw.hasAccess([ORGANIZER ]),
+    api.getAllAssignmentedtoEvent
+);
 
 module.exports = router;
