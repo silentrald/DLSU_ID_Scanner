@@ -4,7 +4,7 @@ const {
     organizer,
     checker,
     eventID,
-    serialID,
+    // serialID,
 } = require('./testValues');
 
 const URL = 'http://localhost:5000/api/assignment';

@@ -1,4 +1,5 @@
 const Ajv = require('ajv');
+const db = require('../db');
 const ajv = new Ajv({
     allErrors: true
 });

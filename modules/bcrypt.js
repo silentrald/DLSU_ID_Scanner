@@ -15,4 +15,4 @@ const bcryptCustom = {
 module.exports = {
     ...bcryptCustom,
     ...bcrypt
-}
+};

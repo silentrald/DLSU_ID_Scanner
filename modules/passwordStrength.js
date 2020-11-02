@@ -4,7 +4,7 @@
  * @param {string} password 
  * @return {Promise<boolean>}
  */
-const promiseRegex = (regex, password) => new Promise((resolve, reject) => {
+const promiseRegex = (regex, password) => new Promise((resolve) => {
     resolve(regex.test(password) ? true : false);
 });
 
@@ -26,20 +26,16 @@ const passwordStrength = async (password) => {
     let p3 = promiseRegex(/[0-9]/, password);
     let p4 = promiseRegex(/[^(a-zA-Z0-9)]/, password);
 
-    try {
-        let [ r1, r2, r3 ] = await Promise.all([ p1, p2, p3 ]);
-        strength = r1 + r2 + r3;
+    let [ r1, r2, r3 ] = await Promise.all([ p1, p2, p3 ]);
+    strength = r1 + r2 + r3;
 
-        if (strength >= 3) {
-            return true;
-        }
-
-        strength += await p4;
-
-        return strength >= 3;
-    } catch (err) {
-        throw err;
+    if (strength >= 3) {
+        return true;
     }
-}
+
+    strength += await p4;
+
+    return strength >= 3;
+};
 
 module.exports = passwordStrength;
