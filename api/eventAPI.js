@@ -191,6 +191,17 @@ const eventAPI = {
                 
                 await db.query(queryDelAssign);
 
+                //Delete assignment from ATTENDANCES
+                const queryDelAttendances = {
+                    text: `
+                        DELETE FROM attendances
+                        WHERE event_id = $1;
+                    `,
+                    values: [ eventID ]
+                };
+                
+                await db.query(queryDelAttendances);
+
                 //Delete event from EVENTS
                 const queryDelEvent = {
                     text: `
