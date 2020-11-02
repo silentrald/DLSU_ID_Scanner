@@ -12,7 +12,7 @@ on:
       - dev
 
 jobs:
-  build:
+  server_build: 
 
     runs-on: ubuntu-latest
 
