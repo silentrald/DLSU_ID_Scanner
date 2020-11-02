@@ -92,7 +92,7 @@ const eventAPI = {
                         eventOrg,
                         req.user.userID
                     ]
-                }
+                };
 
                 const resEvent = await client.query(queryInsEvent);
 
@@ -106,7 +106,7 @@ const eventAPI = {
                         req.user.userID,
                         resEvent.rows[0].event_id,
                     ]
-                }
+                };
 
                 await client.query(queryInsAssign);
 

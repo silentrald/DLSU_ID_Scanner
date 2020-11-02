@@ -6,9 +6,9 @@ const mw = {
 };
 
 const {
-    ADMIN,
-    ORGANIZER,
-    CHECKER
+    ADMIN
+    // ORGANIZER,
+    // CHECKER
 } = require('../constant').ACCESS;
 
 // GET

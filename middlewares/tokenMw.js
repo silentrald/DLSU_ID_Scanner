@@ -8,7 +8,7 @@ const tokenMw = {
         const { token } = req.body;
 
         try {
-            const userData = await jwt.verifyPromise(token)
+            const userData = await jwt.verifyPromise(token);
             req.user = userData;
             next();
         } catch (err) {
@@ -29,7 +29,7 @@ const tokenMw = {
         const { token } = req.headers;
 
         try {
-            const userData = await jwt.verifyPromise(token)
+            const userData = await jwt.verifyPromise(token);
             req.user = userData;
             next();
         } catch (err) {
@@ -70,7 +70,7 @@ const tokenMw = {
                 return res.status(403).send({ errMsg: 'Forbidden' });
             
             next();
-        }
+        };
     }
 };
 

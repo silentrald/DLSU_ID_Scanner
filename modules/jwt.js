@@ -37,4 +37,4 @@ const customJWT = {
 module.exports = {
     ...customJWT,
     ...jwt
-}
+};

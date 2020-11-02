@@ -76,7 +76,7 @@ ajv.addSchema({
         'fname',
         'lname',
     ]
-}, STUDENT_EDIT_BODY_SCHEMA)
+}, STUDENT_EDIT_BODY_SCHEMA);
 
 //Checker for valid DLSU ID
 const validateID = studentID => {
@@ -84,7 +84,7 @@ const validateID = studentID => {
     for (let i = 1; i < 9; i++) {
         accumulator += studentID % 10 * i;
         accumulator %= 11;
-        studentID = Math.floor(studentID / 10)
+        studentID = Math.floor(studentID / 10);
     }
     return accumulator === 0;
 };
@@ -106,8 +106,8 @@ const studentMw = {
 
         //Check studentID 
         if (!validateID(req.body.studentID)) {
-            console.log("Invalid student ID");
-            return res.status(403).send({ error: "Invalid student ID" });
+            console.log('Invalid student ID');
+            return res.status(403).send({ error: 'Invalid student ID' });
         }
 
         next();

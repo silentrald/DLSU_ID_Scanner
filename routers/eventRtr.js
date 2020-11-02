@@ -1,6 +1,6 @@
 const router    = require('express')();
 const api       = require('../api/eventAPI');
-const { validateEventIDParams } = require('../middlewares/eventMw');
+// const { validateEventIDParams } = require('../middlewares/eventMw');
 const mw = {
     ...require('../middlewares/tokenMw'),
     ...require('../middlewares/eventMw'),
