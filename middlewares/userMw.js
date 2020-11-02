@@ -178,7 +178,6 @@ const userMw = {
             if (rowCount < 1) {
                 return res.status(403).send({ errMsg: 'User does not exist' });
             }
-
             next();
         } catch (err) {
             console.log(err);
@@ -196,7 +195,7 @@ const userMw = {
             const queryCheckerUser = {
                 text: `
                     SELECT  *
-                    FROM    assignments
+                    FROM    checker_users
                     WHERE   user_id = $1
                         AND organizer_assigned = $2
                     LIMIT   1;
@@ -218,6 +217,47 @@ const userMw = {
             return res.status(500).end();
         }
     },
+    /**
+     * Validate the user if fits to the roles offered in list
+     */
+    checkRoleParams: list => {
+        return async (req, res, next) => {
+            const { userID } = req.params;
+
+            if (typeof(list) === 'string') {
+                list = [ list ];
+            }
+
+            const queryUser = {
+                text: `
+                    SELECT  *
+                    FROM    users
+                    WHERE   user_id = $1
+                    LIMIT   1;
+                `,
+                values: [ userID ]
+            };
+
+            const { rows } = await db.query(queryUser);
+
+            if (!Array.isArray(list)) {
+                // FOR DEBUGGING
+                console.log('CHECK PARAMS, wrong list params');
+                return res.status(500).end();
+            }
+
+            if (!req.user || !req.user.access) {
+                // FOR DEBUGGING
+                console.log('CHECK ROUTE, forgot to add token verification'); 
+                return res.status(500).end();
+            }
+
+            if (!list.includes(rows[0].access))
+                return res.status(403).send({ errMsg: 'User is not a checker' });
+            
+            next();
+        }
+    }
 };
 
 module.exports = userMw;

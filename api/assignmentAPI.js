@@ -39,26 +39,37 @@ const assignmentAPI = {
 
     // POST
     postAssignChecker: async (req, res) => {
-        const { eventID, userID } = req.body;
-
+        const { eventID, userID } = req.params;
+        
         try {
             const queryInsAssignment = {
                 text: `
-                    INSERT INTO assignments(event_id, user_id)
+                    INSERT INTO assignments(user_id, event_id)
                         VALUES($1, $2);
                 `,
-                values: [ eventID, userID ]
+                values: [ userID, eventID ]
             };
 
             await db.query(queryInsAssignment);
             return res.status(201).send({ msg: 'Checker was assigned to the event' });
         } catch (err) {
-            console.log(err);
-
-            // TODO: if user_id is not in the users table
-
+            
             // TODO: if user is already assigned to the event
-            // return res.status(403).send({ errMsg: 'Checker is already assigned to the event' });
+            const queryCheckAssignment = {
+                text: `
+                    SELECT *
+                    FROM assignments
+                    WHERE user_id = $1
+                        AND event_id = $2
+                `,
+                values: [ userID, eventID ]
+            };
+
+            const { rowCount } = await db.query(queryCheckAssignment);
+
+            if (rowCount == 1) {
+                return res.status(403).send({ errMsg: 'Checker is already assigned to the event' });
+            }
 
             return res.status(500).end();
         }

@@ -6,6 +6,7 @@ require('ajv-keywords')(ajv, [
     'transform',
 ]);
 const date = require('../modules/date');
+const db = require('../db');
 
 const EVENT_ID_PARAMS_SCHEMA = 'a';
 const EVENT_INFO_BODY_SCHEMA = 'b';
