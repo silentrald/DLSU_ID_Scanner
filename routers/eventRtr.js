@@ -48,7 +48,7 @@ router.patch('/edit/:eventID',
 
 // DELETE
 router.delete('/delete/:eventID',
-    mw.verifyHeaderToken,
+    mw.verifyToken,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,
     mw.isEventOrganizer,
