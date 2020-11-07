@@ -109,7 +109,7 @@ const userMw = {
             console.log(ajv.errors);
             return res.status(403).send({ error: ajv.errors });
         }
-
+        
         // validate password strength
         try {
             const strong = await passwordStrength(req.body.password);
