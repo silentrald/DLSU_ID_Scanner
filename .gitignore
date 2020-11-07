@@ -4,6 +4,7 @@ node_modules
 
 curl.txt
 db.sql
+importdb.sql
 doc
 
 test.js

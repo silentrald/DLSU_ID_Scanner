@@ -87,6 +87,7 @@ const userAPI = {
             await db.query(queryInsOrganizer);
 
             return res.status(201).send({ msg: 'Organizer User Created' });
+            
         } catch (err) {
             console.log(err);
 
