@@ -12,7 +12,7 @@ const {
 
 // GET
 router.get('/:eventID',
-    mw.verifyHeaderToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,
     api.getEvent
@@ -23,14 +23,14 @@ router.get('/:eventID',
  * Gets all events created/assigned to the organizer logged in 
  */
 router.get('/all/:userID',
-    mw.verifyHeaderToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     api.getAllMyEvents
 );
 
 // POST
 router.post('/create',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventInfo,
     api.postCreateEvent
@@ -38,7 +38,7 @@ router.post('/create',
 
 // PATCH
 router.patch('/edit/:eventID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,
     mw.validateEventInfo,
@@ -48,7 +48,7 @@ router.patch('/edit/:eventID',
 
 // DELETE
 router.delete('/delete/:eventID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateEventIDParams,
     mw.isEventOrganizer,

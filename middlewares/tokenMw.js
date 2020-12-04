@@ -2,44 +2,36 @@ const jwt = require('../modules/jwt');
 
 const tokenMw = {
     /**
-     * Verifies the token it the request body
+     * Verifies the token in the request query
      */
-    verifyToken: async (req, res, next) => {
-        const { token } = req.body;
+    smartLogin: async (req, res, next) => {
+        const { authorization } = req.headers;
 
-        try {
-            const userData = await jwt.verifyPromise(token);
-            req.user = userData;
-            next();
-        } catch (err) {
-            console.log(err);
-
-            // if (err.name === 'TokenExpiredError') // JWT Expired
-            // if (err.name === 'JsonWebTokenError')
-            // if (err.name === 'NotBeforeError')
-
-            return res.status(401).send({ errMsg: 'Unauthorized' });
+        if (authorization && typeof(authorization) === 'string') {
+            try {
+                const token = authorization.split(' ')[1];
+                const userData = await jwt.verifyPromise(token);
+                req.user = userData;
+            } catch (err) {
+                console.log(err);
+            }
         }
+        
+        // if (err.name === 'TokenExpiredError') // JWT Expired
+        // if (err.name === 'JsonWebTokenError')
+        // if (err.name === 'NotBeforeError')
+
+        next();
     },
 
     /**
-     * Verifies the token in the request query
+     * Check if user is logged in to the api
      */
-    verifyHeaderToken: async (req, res, next) => {
-        const { token } = req.headers;
-
-        try {
-            const userData = await jwt.verifyPromise(token);
-            req.user = userData;
+    isAuth: (req, res, next) => {
+        if (req.user) {
             next();
-        } catch (err) {
-            console.log(err);
-
-            // if (err.name === 'TokenExpiredError') // JWT Expired
-            // if (err.name === 'JsonWebTokenError')
-            // if (err.name === 'NotBeforeError')
-            
-            return res.status(401).send({ errMsg: 'Unauthorized' });
+        } else {
+            return res.status(403).send({ error: 'Auth Failed' });
         }
     },
 

@@ -17,7 +17,7 @@ const {
  * Marks a student's entrance to an event
  */
 router.post('/enter/:eventID/:serialID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER, CHECKER ]),
     mw.validateParamEventAndStudentID,
     mw.checkAssignments,
@@ -29,7 +29,7 @@ router.post('/enter/:eventID/:serialID',
  * Marks a student's exit to an event
  */
 router.patch('/exit/:eventID/:serialID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER, CHECKER ]),
     mw.validateParamEventAndStudentID,
     mw.checkAssignments,
@@ -38,7 +38,7 @@ router.patch('/exit/:eventID/:serialID',
 
 // DELETE
 router.delete('/delete/:eventID/:serialID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER, CHECKER ]),
     mw.validateParamEventAndStudentID,
     mw.checkAssignments,

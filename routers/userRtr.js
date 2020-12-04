@@ -28,7 +28,7 @@ router.post('/login',
  * Verifies the token passed in the body
  */
 router.post('/verify',
-    mw.verifyToken,
+    mw.isAuth,
     api.postVerify
 );
 
@@ -36,7 +36,7 @@ router.post('/verify',
  * Creates an organizer user with the admin account
  */
 router.post('/organizer/create',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ADMIN ]),
     mw.validateUserInfo,
     api.postCreateOrganizer
@@ -47,7 +47,7 @@ router.post('/organizer/create',
  * Change Password
  */
 router.patch('/password-change/:userID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.validateUserIDParams,
     mw.validatePasswords,
     api.patchChangePassword
@@ -55,7 +55,7 @@ router.patch('/password-change/:userID',
 
 // DELETE
 router.delete('/organizer/:userID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ADMIN ]),
     mw.validateUserIDParams,
     api.deleteOrganizer
