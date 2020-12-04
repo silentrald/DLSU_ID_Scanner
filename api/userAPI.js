@@ -1,6 +1,7 @@
 const bcrypt    = require('../modules/bcrypt');
 const db        = require('../db');
 const jwt       = require('../modules/jwt');
+const { hashSalt } = require('../modules/bcrypt');
 
 const userAPI = {
     // GET
@@ -70,6 +71,8 @@ const userAPI = {
         } = req.body;
         
         try {
+            const encrypted = await hashSalt(password);
+
             const queryInsOrganizer = {
                 text: `
                     INSERT INTO users(username, password, access)
@@ -77,13 +80,14 @@ const userAPI = {
                 `,
                 values: [
                     username,
-                    password,
+                    encrypted,
                     'o'
                 ]
             };
             await db.query(queryInsOrganizer);
 
             return res.status(201).send({ msg: 'Organizer User Created' });
+            
         } catch (err) {
             console.log(err);
 
