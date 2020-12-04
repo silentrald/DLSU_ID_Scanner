@@ -8,7 +8,11 @@
     "dev": "nodemon app.js --exec \"npm run lint && node\"",
     "lint": "eslint .",
     "doc": "jsdoc modules/bcrypt.js modules/jwt.js -d doc",
-    "test": "jest"
+    "test": "jest --runInBand --silent --coverage --color",
+    "migrate-up": "node migrations/up",
+    "migrate-down": "node migrations/down",
+    "db-insert": "node migrations/insert",
+    "db-delete": "node migrations/delete"
   },
   "author": "Gerald Dalan",
   "license": "MIT",

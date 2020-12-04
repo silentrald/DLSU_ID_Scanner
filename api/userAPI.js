@@ -9,7 +9,7 @@ const userAPI = {
     
     // POST
     postLogin: async (req, res) => {
-        let { username, password } = req.body;
+        const { username, password } = req.body;
         let user;
 
         try {
