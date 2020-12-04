@@ -1,5 +1,5 @@
 {
-  "name": "id_scanner_webapp",
+  "name": "id-scanner-server",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -14,7 +14,7 @@
     "db-insert": "node migrations/insert",
     "db-delete": "node migrations/delete"
   },
-  "author": "Gerald Dalan",
+  "author": "LSCS RND 2020-21",
   "license": "MIT",
   "dependencies": {
     "ajv": "^6.12.6",
