@@ -17,7 +17,7 @@ const {
  * Creates a checker account
  */
 router.post('/create', 
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateUserInfo,
     api.postCreateChecker
@@ -27,7 +27,7 @@ router.post('/create',
 
 // DELETE
 router.delete('/delete/:checkerID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
     mw.validateUserIDParams,
     mw.isOrganizerAssigned,

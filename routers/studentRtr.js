@@ -16,7 +16,7 @@ const {
  * Creates a new student in the database
  */
 router.post('/create',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ADMIN, ORGANIZER, CHECKER ]),
     mw.validateStudentInfo,
     api.postCreateStudent);
@@ -26,7 +26,7 @@ router.post('/create',
  */
 // PATCH
 router.patch('/edit/:serialID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ADMIN, ORGANIZER, CHECKER ]),
     mw.validateParamSerialID,
     mw.validateStudentEditInfo,
@@ -37,7 +37,7 @@ router.patch('/edit/:serialID',
  */
 // DELETE
 router.delete('/delete/:serialID',
-    mw.verifyToken,
+    mw.isAuth,
     mw.hasAccess([ ADMIN, ORGANIZER, CHECKER ]),
     mw.validateParamSerialID,
     api.deleteStudent);

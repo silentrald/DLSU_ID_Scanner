@@ -2,7 +2,6 @@
 const express       = require('express');
 
 const bodyParser    = require('body-parser');
-const morgan        = require('morgan');
 
 require('dotenv').config();
 
@@ -10,9 +9,17 @@ const app = express();
 
 const PORT = process.env.PORT | 5000;
 
-app.use(morgan('dev'));
+// MIDDLEWARES
+if (process.env.NODE_ENV === 'development') {
+    app.use(require('morgan')('dev'));
+}
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// CUSTOM MIDDLEWARES
+const { smartLogin } = require('./middlewares/tokenMw');
+app.use(smartLogin);
 
 // API ROUTERS
 const userRtr           = require('./routers/userRtr');
