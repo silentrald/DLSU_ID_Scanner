@@ -155,7 +155,7 @@ const attendanceAPI = {
     // DELETE
     deleteAttendance: async (req, res) => {
         const { eventID, serialID } = req.params;
-        console.log('BOSS???');
+        
         try {
             const queryDelAttendance = {
                 text: `
