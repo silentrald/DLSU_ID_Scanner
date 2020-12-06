@@ -6,7 +6,7 @@ curl http://localhost:5000/api/user/verify --header "Content-Type: application/j
 
 
 //Create student attendance
-curl http://localhost:5000/api/attendance/enter/7bcrUyUGqAc/f6709bcf -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI1NTU4OCwiZXhwIjoxNjA3MjU5MTg4fQ.1H0YK5T5CTCy3XpWV80ouo3t3Vfwfzd8teCZL7XCouQ" --request POST
+curl http://localhost:5000/api/attendance/enter/QunkLCYphEd/f6709bcf -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI1NTU4OCwiZXhwIjoxNjA3MjU5MTg4fQ.1H0YK5T5CTCy3XpWV80ouo3t3Vfwfzd8teCZL7XCouQ" --request POST
 
 curl http://localhost:5000/api/student/create --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzQ1MjcwNywiZXhwIjoxNjAzNDU2MzA3fQ.rBkG50U0mHvZQC0oCW7LGkQUVhV35mGVGL4Ovo9OIwk\", \"serialID\":\"00000000\", \"studentID\": 11828366, \"fname\": \"dummy\", \"lname\": \"dummy\"}"
 

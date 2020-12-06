@@ -48,20 +48,19 @@ const attendanceAPI = {
      
             const resultEvent = await db.query(queryGetEvent);
 
-            if (resultEvent.rowCount < 1) {
-                // The eventID does not exist in the DB
-                return res.status(200).send({ msg: 'eventID does not exist in database'});
-            }
-
             const event = resultEvent.rows[0];
             const eventDateStart = event.start_date.valueOf();
             const eventDateEnd = event.end_date.valueOf();
             //TODO Compare the dates
             const dateNow = new Date().valueOf();
-            console.log(dateNow);
-            console.log(eventDateStart);
-            console.log(eventDateEnd);
-            console.log(dateNow >= eventDateStart && dateNow <= eventDateEnd);
+
+            if(dateNow < eventDateStart) {
+                return res.status(200).send({ msg: 'Event has not yet started', create: false });
+            }
+
+            if(dateNow > eventDateEnd) {
+                return res.status(200).send({ msg: 'Event has already finished', create: false });
+            }
 
             const queryInsAttendance = {
                 text: `

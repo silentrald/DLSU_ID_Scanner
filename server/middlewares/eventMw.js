@@ -110,6 +110,7 @@ const eventMw = {
             // TODO: clean
             return res.status(403).send({ error: ajv.errors.map(error => error.message) });
         }
+        
         // check if valid dates
         const { startDate, endDate } = req.body;
         const dateNow = new Date().getDate();
