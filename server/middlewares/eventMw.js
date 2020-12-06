@@ -112,8 +112,10 @@ const eventMw = {
         }
         // check if valid dates
         const { startDate, endDate } = req.body;
+        const dateNow = new Date().getDate();
+        const eventStartDate = new Date(startDate).getDate();
 
-        if (date.compareToNow(startDate) < 0) {
+        if (eventStartDate < dateNow) {
             return res.status(403).send({ error: 'Start Date should not be a date before today' });
         }
 

@@ -6,7 +6,7 @@ curl http://localhost:5000/api/user/verify --header "Content-Type: application/j
 
 
 //Create student attendance
-curl http://localhost:5000/api/attendance/enter/7bcrUyUGqAc/f6709bcf -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI0NDcxOCwiZXhwIjoxNjA3MjQ4MzE4fQ.H9ugm6UMb0wnj0tE55lY8iaXIU6mg0uyNv0AnX8YXvA" --request POST
+curl http://localhost:5000/api/attendance/enter/7bcrUyUGqAc/f6709bcf -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI1NTU4OCwiZXhwIjoxNjA3MjU5MTg4fQ.1H0YK5T5CTCy3XpWV80ouo3t3Vfwfzd8teCZL7XCouQ" --request POST
 
 curl http://localhost:5000/api/student/create --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzQ1MjcwNywiZXhwIjoxNjAzNDU2MzA3fQ.rBkG50U0mHvZQC0oCW7LGkQUVhV35mGVGL4Ovo9OIwk\", \"serialID\":\"00000000\", \"studentID\": 11828366, \"fname\": \"dummy\", \"lname\": \"dummy\"}"
 
@@ -14,7 +14,7 @@ curl http://localhost:5000/api/assignment/all/3 --header "Content-Type: applicat
 
 curl http://localhost:5000/api/user/checker/create --header "Content-Type: application/json" --request POST --data "{\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMTg5MDIzOSwiZXhwIjoxNjAxODkzODM5fQ.OcDuAaaOiRHreCKUPNYI4QN4btIg2RBfZgpg6JtCfEI\", \"username\": \"checker\", \"password\": \"password\"}"
 
-curl http://localhost:5000/api/event/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI0NDcxOCwiZXhwIjoxNjA3MjQ4MzE4fQ.H9ugm6UMb0wnj0tE55lY8iaXIU6mg0uyNv0AnX8YXvA" -H "Content-Type: application/json" --request POST --data "{\"eventName\": \"Sample Event\", \"startDate\": \"2020-12-30\", \"endDate\": \"2020-12-31\", \"eventOrg\": \"CSO\"}"
+curl http://localhost:5000/api/event/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI1NTU4OCwiZXhwIjoxNjA3MjU5MTg4fQ.1H0YK5T5CTCy3XpWV80ouo3t3Vfwfzd8teCZL7XCouQ" -H "Content-Type: application/json" --request POST --data "{\"eventName\": \"Sample Event\", \"startDate\": \"2020-12-07\", \"endDate\": \"2020-12-31\", \"eventOrg\": \"CSO\"}"
 
 curl http://localhost:5000/api/event/ICduHVfuBxd --header "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzYyMzk3MSwiZXhwIjoxNjAzNjI3NTcxfQ.Dw1JqDQFY1aCHe2Cv3ziDESvjqHgoSAuRQQ-g-Fw7_U"
 
@@ -32,6 +32,6 @@ curl http://localhost:5000/api/assignment/checker/assigned --header "token: eyJh
 
 
 
-curl http://localhost:5000/api/user/login --header "Content-Type: application/json" --request POST --data "{\"username\": \"admin\", \"password\": \"admin_password\"}"
+curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --request POST --data "{\"username\": \"admin\", \"password\": \"admin_password\"}"
 
 curl http://localhost:5000/api/user/organizer/create --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA0NzE2MzU4LCJleHAiOjE2MDQ3MTk5NTh9.20VYAy_ElE3Gm-TIWCckCbfRxbMxPjaNW7RzO9WZNBU\", \"username\": \"poggers\", \"password\": \"Organizer_password\"}"

@@ -34,7 +34,7 @@ const attendanceAPI = {
             }
             student = resultStudent.rows[0];
             
-            //Check if event starts today (assuming eventID exists as confirmed by MW)
+            //Check if event exists
             //Gets the event 
             const queryGetEvent = {
                 text: `
@@ -48,15 +48,20 @@ const attendanceAPI = {
      
             const resultEvent = await db.query(queryGetEvent);
 
-            // if (resultStudent.rowCount < 1) {
-            //     // The eventID does not exist in the DB
-            //     return res.status(200).send({ msg: 'eventID does not exist in database'});
-            // }
+            if (resultEvent.rowCount < 1) {
+                // The eventID does not exist in the DB
+                return res.status(200).send({ msg: 'eventID does not exist in database'});
+            }
 
+            const event = resultEvent.rows[0];
+            const eventDateStart = event.start_date.valueOf();
+            const eventDateEnd = event.end_date.valueOf();
             //TODO Compare the dates
-            const dateNow = new Date();
-            cosole.log(dateNow);
-            console.log(resultEvent.rows[0].start_date);
+            const dateNow = new Date().valueOf();
+            console.log(dateNow);
+            console.log(eventDateStart);
+            console.log(eventDateEnd);
+            console.log(dateNow >= eventDateStart && dateNow <= eventDateEnd);
 
             const queryInsAttendance = {
                 text: `
