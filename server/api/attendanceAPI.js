@@ -55,7 +55,7 @@ const attendanceAPI = {
 
             //TODO Compare the dates
             const dateNow = new Date();
-            console.log(dateNow);
+            cosole.log(dateNow);
             console.log(resultEvent.rows[0].start_date);
 
             const queryInsAttendance = {
