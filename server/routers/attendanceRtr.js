@@ -3,6 +3,7 @@ const api       = require('../api/attendanceAPI');
 const mw = {
     ...require('../middlewares/tokenMw'),
     ...require('../middlewares/attendanceMw'),
+    ...require('../middlewares/eventMw'),
 };
 
 const {

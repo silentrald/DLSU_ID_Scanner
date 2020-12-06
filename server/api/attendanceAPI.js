@@ -155,13 +155,13 @@ const attendanceAPI = {
     // DELETE
     deleteAttendance: async (req, res) => {
         const { eventID, serialID } = req.params;
-
+        console.log('BOSS???');
         try {
             const queryDelAttendance = {
                 text: `
                     DELETE FROM attendances
                     WHERE   event_id = $1
-                        AND serial_id = $2;
+                        AND student_id = $2;
                 `,
                 values: [ eventID, serialID ]
             };

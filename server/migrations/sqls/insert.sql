@@ -16,3 +16,6 @@ INSERT INTO assignments(user_id, event_id) VALUES
 
 INSERT INTO students(serial_id, student_id, fname, lname)
     VALUES('f6709bcf', 11827211, 'Gerald', 'Dalan');
+
+INSERT INTO checker_users(user_id, organizer_assigned)
+    VALUES(3,2);
