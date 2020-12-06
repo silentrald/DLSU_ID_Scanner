@@ -9,6 +9,7 @@ if (!process.env.CI) {
 const fs = require('fs').promises;
 const path = require('path');
 const { Pool } = require('pg');
+require('dotenv').config();
 
 const config = {
     user:       process.env.POSTGRES_USER,
@@ -17,6 +18,7 @@ const config = {
     port:       process.env.POSTGRES_PORT,
     database:   process.env.POSTGRES_DB
 };
+console.log(process.env.NODE_ENV);
 
 const client = new Pool(config);
 

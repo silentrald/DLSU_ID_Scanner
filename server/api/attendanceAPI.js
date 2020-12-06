@@ -33,7 +33,31 @@ const attendanceAPI = {
                 return res.status(200).send({ msg: 'ID has not been registered', create: true });
             }
             student = resultStudent.rows[0];
+            
+            //Check if event starts today (assuming eventID exists as confirmed by MW)
+            //Gets the event 
+            const queryGetEvent = {
+                text: `
+                    SELECT  *
+                    FROM    events
+                    WHERE   event_id = $1
+                    LIMIT   1;
+                `,
+                values: [ eventID ]
+            };
      
+            const resultEvent = await db.query(queryGetEvent);
+
+            // if (resultStudent.rowCount < 1) {
+            //     // The eventID does not exist in the DB
+            //     return res.status(200).send({ msg: 'eventID does not exist in database'});
+            // }
+
+            //TODO Compare the dates
+            const dateNow = new Date();
+            console.log(dateNow);
+            console.log(resultEvent.rows[0].start_date);
+
             const queryInsAttendance = {
                 text: `
                     INSERT INTO attendances(student_id, event_id)

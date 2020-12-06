@@ -90,7 +90,7 @@ const userMw = {
      */
     validateLogin: (req, res, next) => {
         const valid = ajv.validate(LOGIN_BODY_SCHEMA, req.body);
-
+        console.log(valid);
         if (!valid) {
             console.log(ajv.errorsText());
             return res.status(401).send({ errMsg: 'Auth Failed' });

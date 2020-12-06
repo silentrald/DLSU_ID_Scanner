@@ -6,7 +6,6 @@ const tokenMw = {
      */
     smartLogin: async (req, res, next) => {
         const { authorization } = req.headers;
-
         if (authorization && typeof(authorization) === 'string') {
             try {
                 const token = authorization.split(' ')[1];

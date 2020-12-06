@@ -1,0 +1,37 @@
+curl http://localhost:5000/api/user/login --header "Content-Type: application/json" --request POST --data "{\"username\": \"organizer\", \"password\": \"password\"}"
+
+curl http://localhost:5000/api/id/696969 --header "Content-Type: application/json" --request POST --data "{\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiYWNjZXNzIjoiYSIsImlhdCI6MTYwMTE0MTEyOSwiZXhwIjoxNjAxMTQ0NzI5fQ.Rad7BE84iPEeZ7QgnU7mhwRy8zHuhFap9dwUcS-6bik\"}"
+
+curl http://localhost:5000/api/user/verify --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjAxNzIwOTU2LCJleHAiOjE2MDE3MjQ1NTZ9.A2piOA10K5qNgHhaMDlOvU2sqlFuyI55QRc-e0aFypw\"}"
+
+
+//Create student attendance
+curl http://localhost:5000/api/attendance/enter/7bcrUyUGqAc/f6709bcf -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI0NDcxOCwiZXhwIjoxNjA3MjQ4MzE4fQ.H9ugm6UMb0wnj0tE55lY8iaXIU6mg0uyNv0AnX8YXvA" --request POST
+
+curl http://localhost:5000/api/student/create --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzQ1MjcwNywiZXhwIjoxNjAzNDU2MzA3fQ.rBkG50U0mHvZQC0oCW7LGkQUVhV35mGVGL4Ovo9OIwk\", \"serialID\":\"00000000\", \"studentID\": 11828366, \"fname\": \"dummy\", \"lname\": \"dummy\"}"
+
+curl http://localhost:5000/api/assignment/all/3 --header "Content-Type: application/json" --header "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNDMwNjE3MywiZXhwIjoxNjA0MzA5NzczfQ.M3_ggYldY8PwI49Ovs4Gf7nFz2RN_w9PXw940vzLHCE" --request GET
+
+curl http://localhost:5000/api/user/checker/create --header "Content-Type: application/json" --request POST --data "{\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMTg5MDIzOSwiZXhwIjoxNjAxODkzODM5fQ.OcDuAaaOiRHreCKUPNYI4QN4btIg2RBfZgpg6JtCfEI\", \"username\": \"checker\", \"password\": \"password\"}"
+
+curl http://localhost:5000/api/event/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI0NDcxOCwiZXhwIjoxNjA3MjQ4MzE4fQ.H9ugm6UMb0wnj0tE55lY8iaXIU6mg0uyNv0AnX8YXvA" -H "Content-Type: application/json" --request POST --data "{\"eventName\": \"Sample Event\", \"startDate\": \"2020-12-30\", \"endDate\": \"2020-12-31\", \"eventOrg\": \"CSO\"}"
+
+curl http://localhost:5000/api/event/ICduHVfuBxd --header "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzYyMzk3MSwiZXhwIjoxNjAzNjI3NTcxfQ.Dw1JqDQFY1aCHe2Cv3ziDESvjqHgoSAuRQQ-g-Fw7_U"
+
+curl http://localhost:5000/api/event/all/2 --header "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzYyMzk3MSwiZXhwIjoxNjAzNjI3NTcxfQ.Dw1JqDQFY1aCHe2Cv3ziDESvjqHgoSAuRQQ-g-Fw7_U"
+ 
+curl http://localhost:5000/api/event/delete/MJampAbONAe  --header "Content-Type: application/json" --request DELETE --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzY5NTIyNiwiZXhwIjoxNjAzNjk4ODI2fQ.oTUWscbEsvqXeJc8LCxggleqHsDX1H6E1WNspAwgGJI\"}"
+
+curl http://localhost:5000/api/assignment/create/UimLX9gxEEf/3  --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzY5NTIyNiwiZXhwIjoxNjAzNjk4ODI2fQ.oTUWscbEsvqXeJc8LCxggleqHsDX1H6E1WNspAwgGJI\"}"
+
+curl http://localhost:5000/api/assignment/checker/assigned --header "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNDMwNjE3MywiZXhwIjoxNjA0MzA5NzczfQ.M3_ggYldY8PwI49Ovs4Gf7nFz2RN_w9PXw940vzLHCE" --request GET
+
+
+
+
+
+
+
+curl http://localhost:5000/api/user/login --header "Content-Type: application/json" --request POST --data "{\"username\": \"admin\", \"password\": \"admin_password\"}"
+
+curl http://localhost:5000/api/user/organizer/create --header "Content-Type: application/json" --request POST --data "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA0NzE2MzU4LCJleHAiOjE2MDQ3MTk5NTh9.20VYAy_ElE3Gm-TIWCckCbfRxbMxPjaNW7RzO9WZNBU\", \"username\": \"poggers\", \"password\": \"Organizer_password\"}"
