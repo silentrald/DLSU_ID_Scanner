@@ -11,7 +11,6 @@ const userAPI = {
     postLogin: async (req, res) => {
         const { username, password } = req.body;
         let user;
-
         try {
             const queryUser = {
                 text: `

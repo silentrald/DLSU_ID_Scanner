@@ -29,9 +29,11 @@ jobs:
 
     - name: Install Packages
       run: npm i
+      working-directory: ./server
       
 #     - name: Build
 #       run: npm run build --if-present
   
     - name: Test Linting
       run: npm run lint
+      working-directory: ./server

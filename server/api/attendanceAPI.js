@@ -33,7 +33,35 @@ const attendanceAPI = {
                 return res.status(200).send({ msg: 'ID has not been registered', create: true });
             }
             student = resultStudent.rows[0];
+            
+            //Check if event exists
+            //Gets the event 
+            const queryGetEvent = {
+                text: `
+                    SELECT  *
+                    FROM    events
+                    WHERE   event_id = $1
+                    LIMIT   1;
+                `,
+                values: [ eventID ]
+            };
      
+            const resultEvent = await db.query(queryGetEvent);
+
+            const event = resultEvent.rows[0];
+            const eventDateStart = event.start_date.valueOf();
+            const eventDateEnd = event.end_date.valueOf();
+            //TODO Compare the dates
+            const dateNow = new Date().valueOf();
+
+            if(dateNow < eventDateStart) {
+                return res.status(200).send({ msg: 'Event has not yet started', create: false });
+            }
+
+            if(dateNow > eventDateEnd) {
+                return res.status(200).send({ msg: 'Event has already finished', create: false });
+            }
+
             const queryInsAttendance = {
                 text: `
                     INSERT INTO attendances(student_id, event_id)
@@ -127,13 +155,13 @@ const attendanceAPI = {
     // DELETE
     deleteAttendance: async (req, res) => {
         const { eventID, serialID } = req.params;
-
+        
         try {
             const queryDelAttendance = {
                 text: `
                     DELETE FROM attendances
                     WHERE   event_id = $1
-                        AND serial_id = $2;
+                        AND student_id = $2;
                 `,
                 values: [ eventID, serialID ]
             };
