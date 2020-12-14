@@ -5,7 +5,31 @@ const { hashSalt } = require('../modules/bcrypt');
 
 const userAPI = {
     // GET
+    getOrganizer: async (req, res) => {
+        const { userID } = req.params;
+        try {
+            const queryOrganizer = {
+                text: `
+                    SELECT  *
+                    FROM    users
+                    WHERE   user_id = $1;
+                `,
+                values: [ userID ]
+            };
+            
+            const resultUser = await db.query(queryOrganizer);
+            if (resultUser.rowCount < 1) {
+                return res.status(400).send({ errMsg: 'No organizer with that userID found' });
+            }
 
+            return res.status(200).send({ organizer: resultUser.rows[0] });
+
+        } catch (err) {
+            console.log(err);
+            return res.status(401).send({ errMsg: 'Query failed' });
+        }
+
+    },
     
     // POST
     postLogin: async (req, res) => {
@@ -160,25 +184,133 @@ const userAPI = {
         const { userID } = req.params;
 
         try {
-            const queryDelUser = {
-                text: `
-                    DELETE FROM organizers
-                    WHERE   user_id = $1
-                        AND access = $2;
-                `,
-                values: [ userID, 'o' ]
-            };
+            //DELETE
+            const client = await db.connect();
 
-            const { rowCount } = await db.query(queryDelUser);
-            if (rowCount < 1) {
-                return res.render(403).send({ errMsg: 'You cannot delete the user' });
+            try {
+                client.query('BEGIN');
+
+                //GET Checkers from CHECKER_USERS
+                const queryGetCheckers = {
+                    text: `
+                        SELECT * 
+                        FROM CHECKER_USERS
+                        WHERE   organizer_assigned = $1;
+                    `,
+                    values: [ userID ]
+                };
+
+                const resCheckers = await client.query(queryGetCheckers);
+
+                const checkers = resCheckers.rows.map(item => item.user_id);
+
+                //DELETE checkers under from ASSIGNMENTS
+                const queryDelCheckersEvent = {
+                    text: `
+                        DELETE 
+                        FROM    ASSIGNMENTS
+                        WHERE   user_id = any($1);
+                    `,
+                    values: [ checkers ]
+                };
+
+                await db.query(queryDelCheckersEvent);
+
+                //DELETE organizer from ASSIGNMENTS
+                const queryDelOrganizerEvent = {
+                    text: `
+                        DELETE 
+                        FROM    ASSIGNMENTS
+                        WHERE   user_id = $1;
+                    `,
+                    values: [ userID ]
+                };
+
+                await db.query(queryDelOrganizerEvent);
+
+                //DELETE checker from CHECKER_USERS
+                const queryDelCheckersUnder = {
+                    text: `
+                        DELETE 
+                        FROM    CHECKER_USERS
+                        WHERE   organizer_assigned = $1;
+                    `,
+                    values: [ userID ]
+                };
+
+                await db.query(queryDelCheckersUnder);
+
+                //GET EVENTS the organizer made
+                const queryGetEvents = {
+                    text: `
+                        SELECT * 
+                        FROM    EVENTS
+                        WHERE   organizer_id = $1;
+                    `,
+                    values: [ userID ]
+                };
+
+                const resEvents = await client.query(queryGetEvents);
+
+                const events = resEvents.rows.map(item => item.event_id);
+
+                //DELETE ATTENDANCES 
+                const queryDelAttendanceEvent = {
+                    text: `
+                        DELETE 
+                        FROM    ATTENDANCES
+                        WHERE   event_id = any ($1);
+                    `,
+                    values: [ events ]
+                };
+
+                await db.query(queryDelAttendanceEvent);
+
+                //DELETE EVENTS made by organizer
+                const queryDelEventsbyUser = {
+                    text: `
+                        DELETE 
+                        FROM    EVENTS
+                        WHERE   organizer_id = $1;
+                    `,
+                    values: [ userID ]
+                };
+
+                await db.query(queryDelEventsbyUser);
+
+                //DELETE Organizer from USER
+                const queryDelUser = {
+                    text: `
+                        DELETE 
+                        FROM USERS
+                        WHERE   user_id = $1
+                            AND access = $2;
+                    `,
+                    values: [ userID, 'o' ]
+                };
+    
+                const { rowCount } = await db.query(queryDelUser);
+
+                if (rowCount < 1) {
+                    return res.status(403).send({ errMsg: 'User does not exist / was not deleted' });
+                }
+                
+                await client.query('COMMIT');
+            } catch (err) {
+                //Rollback incase either query fails
+                console.log('Cancelled Transaction');
+                await client.query('ROLLBACK');
+                throw err;
+            } finally {
+                client.release();
             }
-
-            return res.render(200).send({ msg: 'Organizer User has been deleted' });
+            
+            return res.status(200).send({ msg: 'Organizer User has been deleted' });
         } catch (err) {
             console.log(err);
             return res.status(500).end();
         }
+
     },
 };
 

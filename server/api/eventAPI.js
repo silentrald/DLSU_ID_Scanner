@@ -180,6 +180,7 @@ const eventAPI = {
             const client = await db.connect();
             
             try{
+                client.query('BEGIN');
                 //Delete assignment from ASSIGNMENTS
                 const queryDelAssign = {
                     text: `

@@ -4,6 +4,7 @@ const passwordStrength = require('../modules/passwordStrength');
 
 let ajv = new Ajv({
     allErrors: true,
+    coerceTypes: true 
     // jsonPointers: true,
 });
 require('ajv-keywords')(ajv, ['transform']);
@@ -57,7 +58,7 @@ ajv.addSchema({
     properties: {
         userID: {
             type: 'integer',
-            minimun: 0,
+            minimum: 0,
         }
     },
     required: [ 'userID' ]
@@ -217,6 +218,7 @@ const userMw = {
             return res.status(500).end();
         }
     },
+
     /**
      * Validate the user if fits to the roles offered in list
      */
