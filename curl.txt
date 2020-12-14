@@ -38,3 +38,12 @@ curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --
 
 //Login as CHECKER
 curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --request POST --data "{\"username\": \"checker\", \"password\": \"password\"}"
+
+//Create an organizer
+curl http://localhost:5000/api/user/organizer/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTMyNTU0LCJleHAiOjE2MDc5MzYxNTR9.tB4Q5GWK70VqwN5EaFy1na9R4wvzSK6HBRzg926cx_Y" -H "Content-Type: application/json" --request POST --data "{\"username\": \"29\", \"password\": \"Organizer69\"}"
+
+//Get an organizer
+curl http://localhost:5000/api/user/organizer/4 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTM2NDE1LCJleHAiOjE2MDc5NDAwMTV9.ursqPN2feVBVN7-5_D2fOhPDgL-ZHkyPgYVPIrMx-1o" -H "Content-Type: application/json" --request GET
+
+//Get an organizer
+curl http://localhost:5000/api/user/organizer/delete/2 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTQwMTI4LCJleHAiOjE2MDc5NDM3Mjh9.rUVFdwmx5UGbYF28KX_0MJpV68eOjkdO8ioGLDTSiP8" -H "Content-Type: application/json" --request DELETE

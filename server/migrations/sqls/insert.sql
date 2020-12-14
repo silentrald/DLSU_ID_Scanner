@@ -7,6 +7,9 @@ INSERT INTO users(username, password, access)
 INSERT INTO users(username, password, access)
     VALUES('checker', '$2b$10$JCuk1atD3dvuft2d7SWzF.1EwfjDr68EZPNunwcF9U/pih98OIcA6', 'c'); /* password */
 
+INSERT INTO users(username, password, access)
+    VALUES('checker2', '$2b$10$JCuk1atD3dvuft2d7SWzF.1EwfjDr68EZPNunwcF9U/pih98OIcA6', 'c'); /* password */
+
 INSERT INTO events(event_id, event_name, start_date, end_date, event_org, organizer_id)
     VALUES(event_id(), 'Sample', now(), now(), 'LSCS', 2); /* change id to organizer */
 
@@ -22,3 +25,6 @@ INSERT INTO attendances(student_id, event_id) VALUES
 
 INSERT INTO checker_users(user_id, organizer_assigned)
     VALUES(3,2);
+
+
+
