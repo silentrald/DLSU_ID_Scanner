@@ -66,6 +66,33 @@ const checkerAPI = {
         }
     },
 
+    //POST
+    assignChecker:  async (req, res) => {
+        const { checkerID, organizerID } = req.params;
+        
+        try {
+            const queryAssignChecker = {
+                text: `
+                    INSERT INTO checker_users(user_id, organizer_assigned)
+                    VALUES($1, $2)
+                    RETURNING user_id;
+                `,
+                values: [ checkerID, organizerID ]
+            };
+            const { rowCount } = await db.query(queryAssignChecker);
+
+            if (rowCount < 1) {
+                return res.status(403).send({ errMsg: 'Checker was not assigned' });
+            }
+
+            return res.status(201).send({ msg: `Checker User has been assigned under user_id ${organizerID} as well` });
+        }
+        catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
+
     // PATCH
 
     // DELETE
