@@ -10,7 +10,12 @@ const {
     ORGANIZER
 } = require('../constant').ACCESS;
 
-// GET
+// GET 
+// router.get('/create', 
+//     mw.isAuth,
+//     mw.hasAccess([ ORGANIZER ]),
+//     api.postCreateChecker
+// );
 
 // POST
 /**
@@ -21,6 +26,17 @@ router.post('/create',
     mw.hasAccess([ ORGANIZER ]),
     mw.validateUserInfo,
     api.postCreateChecker
+);
+
+// POST
+/**
+ * Creates a checker account
+ */
+router.post('/assign/:checkerID/:organizerID', 
+    mw.isAuth,
+    mw.hasAccess([ ORGANIZER ]),
+    mw.validateTransfer,
+    api.assignChecker
 );
 
 // PATCH

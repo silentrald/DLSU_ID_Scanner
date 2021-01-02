@@ -38,3 +38,9 @@ curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --
 
 //Login as CHECKER
 curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --request POST --data "{\"username\": \"checker\", \"password\": \"password\"}"
+
+//Create an Organizer
+curl http://localhost:5000/api/user/organizer/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA5NTYxMDg5LCJleHAiOjE2MDk1NjQ2ODl9.EtUSDTpPJ5_Gqm_UUN3pFsKRTM-bDh8r_1Y0Sy7iyBM" -H "Content-Type: application/json" --request POST --data "{\"username\": \"organizer2\", \"password\": \"password23!\"}"
+
+//Assign a checker_user to another organizer
+curl http://localhost:5000/api/checker/assign/3/4 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwOTU2Mjg2NywiZXhwIjoxNjA5NTY2NDY3fQ.XXZrQThmf5hiA85l-d9VY6Q3X91mnCKz0wbO5M7mnM0" -H "Content-Type: application/json" --request POST 
