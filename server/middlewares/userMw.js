@@ -187,39 +187,6 @@ const userMw = {
     },
 
     /**
-     * Validate if the checker account is under the organizer
-     */
-    isOrganizerAssigned: async (req, res, next) => {
-        const { userID } = req.params;
-
-        try {
-            const queryCheckerUser = {
-                text: `
-                    SELECT  *
-                    FROM    checker_users
-                    WHERE   user_id = $1
-                        AND organizer_assigned = $2
-                    LIMIT   1;
-                `,
-                values: [
-                    userID,
-                    req.user.userID
-                ]
-            };
-
-            const resultCheckerUser = await db.query(queryCheckerUser);
-            if (resultCheckerUser.rowCount < 1) {
-                return res.status(403).send({ errMsg: 'Checker is not under you' });
-            }
-
-            next();
-        } catch (err) {
-            console.log(err);
-            return res.status(500).end();
-        }
-    },
-
-    /**
      * Validate the user if fits to the roles offered in list
      */
     checkRoleParams: list => {
@@ -255,7 +222,7 @@ const userMw = {
             }
 
             if (!list.includes(rows[0].access))
-                return res.status(403).send({ errMsg: 'User is not a checker' });
+                return res.status(403).send({ errMsg: 'User is not a in the given authorized roles' });
             
             next();
         };

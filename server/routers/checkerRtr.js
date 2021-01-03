@@ -7,10 +7,22 @@ const mw = {
 };
 
 const {
-    ORGANIZER
+    ORGANIZER,
+    CHECKER
 } = require('../constant').ACCESS;
 
 // GET
+/**
+ * Gets a checker account
+ */
+router.get('/:userID', 
+    mw.isAuth,
+    mw.hasAccess([ ORGANIZER ]),
+    mw.isExistingUser,
+    mw.checkRoleParams([ CHECKER ]),
+    mw.isOrganizerAssigned,
+    api.getChecker
+);
 
 // POST
 /**
@@ -26,10 +38,14 @@ router.post('/create',
 // PATCH
 
 // DELETE
-router.delete('/delete/:checkerID',
+/**
+ * Deletes a checker account
+ */
+router.delete('/delete/:userID',
     mw.isAuth,
     mw.hasAccess([ ORGANIZER ]),
-    mw.validateUserIDParams,
+    mw.isExistingUser,
+    mw.checkRoleParams([ CHECKER ]),
     mw.isOrganizerAssigned,
     api.deleteChecker
 );

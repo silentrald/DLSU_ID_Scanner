@@ -4,7 +4,8 @@ const mw = {
     ...require('../middlewares/tokenMw'),
     ...require('../middlewares/assignmentMw'),
     ...require('../middlewares/eventMw'), // isEventOrganizer
-    ...require('../middlewares/userMw'), // isOrganizerAssigned
+    ...require('../middlewares/userMw'),
+    ...require('../middlewares/checkerMw'),  // isOrganizerAssigned
 };
 
 const {

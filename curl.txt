@@ -15,7 +15,8 @@ curl http://localhost:5000/api/assignment/all/3 --header "Content-Type: applicat
 
 curl http://localhost:5000/api/user/checker/create --header "Content-Type: application/json" --request POST --data "{\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMTg5MDIzOSwiZXhwIjoxNjAxODkzODM5fQ.OcDuAaaOiRHreCKUPNYI4QN4btIg2RBfZgpg6JtCfEI\", \"username\": \"checker\", \"password\": \"password\"}"
 
-curl http://localhost:5000/api/event/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzI1NTU4OCwiZXhwIjoxNjA3MjU5MTg4fQ.1H0YK5T5CTCy3XpWV80ouo3t3Vfwfzd8teCZL7XCouQ" -H "Content-Type: application/json" --request POST --data "{\"eventName\": \"Sample Event\", \"startDate\": \"2020-12-07\", \"endDate\": \"2020-12-31\", \"eventOrg\": \"CSO\"}"
+//Create and event
+curl http://localhost:5000/api/event/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjQsInVzZXJuYW1lIjoiT3JnYW5pemVyMjMyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzk0NDM3MCwiZXhwIjoxNjA3OTQ3OTcwfQ.puf97ZoDEjcUeTIXDUFlwwGPIAcaPAhywvNNB455Q9o" -H "Content-Type: application/json" --request POST --data "{\"eventName\": \"Sample Event\", \"startDate\": \"2020-12-14\", \"endDate\": \"2020-12-31\", \"eventOrg\": \"CSO\"}"
 
 curl http://localhost:5000/api/event/ICduHVfuBxd --header "token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwMzYyMzk3MSwiZXhwIjoxNjAzNjI3NTcxfQ.Dw1JqDQFY1aCHe2Cv3ziDESvjqHgoSAuRQQ-g-Fw7_U"
 
@@ -40,10 +41,22 @@ curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --
 curl http://localhost:5000/api/user/login -H "Content-Type: application/json" --request POST --data "{\"username\": \"checker\", \"password\": \"password\"}"
 
 //Create an organizer
-curl http://localhost:5000/api/user/organizer/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTMyNTU0LCJleHAiOjE2MDc5MzYxNTR9.tB4Q5GWK70VqwN5EaFy1na9R4wvzSK6HBRzg926cx_Y" -H "Content-Type: application/json" --request POST --data "{\"username\": \"29\", \"password\": \"Organizer69\"}"
+curl http://localhost:5000/api/user/organizer/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA5NTgwNTA1LCJleHAiOjE2MDk1ODQxMDV9.WEthVpePY1jHDb_hHDhEN4lrmoGEh3GHmb7BJ2OaJW4" -H "Content-Type: application/json" --request POST --data "{\"username\": \"Organizer2321\", \"password\": \"Organizer69\"}"
 
 //Get an organizer
 curl http://localhost:5000/api/user/organizer/4 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTM2NDE1LCJleHAiOjE2MDc5NDAwMTV9.ursqPN2feVBVN7-5_D2fOhPDgL-ZHkyPgYVPIrMx-1o" -H "Content-Type: application/json" --request GET
 
 //Get an organizer
-curl http://localhost:5000/api/user/organizer/delete/2 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTQwMTI4LCJleHAiOjE2MDc5NDM3Mjh9.rUVFdwmx5UGbYF28KX_0MJpV68eOjkdO8ioGLDTSiP8" -H "Content-Type: application/json" --request DELETE
+curl http://localhost:5000/api/user/organizer/delete/2 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJhY2Nlc3MiOiJhIiwiaWF0IjoxNjA3OTQ0ODk1LCJleHAiOjE2MDc5NDg0OTV9.nPrzQqD3CWivdVvkDVfXKI8On9W81kafcPZpn22AH4I" -H "Content-Type: application/json" --request DELETE
+
+//Create a checker
+curl http://localhost:5000/api/user/checker/create -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwNzk0Mzg3OSwiZXhwIjoxNjA3OTQ3NDc5fQ.wjwkCOh-Tnk-gKP8HUqa_zrwXbObdkCG5KwOGxNl1nA" -H "Content-Type: application/json" --request POST --data "{\"username\": \"29\", \"password\": \"Checker69\"}"
+
+//Organizer #2
+curl http://localhost:5000/api/user/login --header "Content-Type: application/json" --request POST --data "{\"username\": \"Organizer232\", \"password\": \"Organizer69\"}"
+
+//Get Checker User
+curl http://localhost:5000/api/checker/5 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjQsInVzZXJuYW1lIjoiT3JnYW5pemVyMjMyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwOTU4MTg4MywiZXhwIjoxNjA5NTg1NDgzfQ.9rxjW_tXxTEG3QyWn5BaVvFpHH3VVT4bMlZvGAs2WSQ" -H "Content-Type: application/json" --request GET
+
+//Delete Checker User
+curl http://localhost:5000/api/checker/delete/5 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjQsInVzZXJuYW1lIjoiT3JnYW5pemVyMjMyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwOTU4MTg4MywiZXhwIjoxNjA5NTg1NDgzfQ.9rxjW_tXxTEG3QyWn5BaVvFpHH3VVT4bMlZvGAs2WSQ" -H "Content-Type: application/json" --request DELETE
