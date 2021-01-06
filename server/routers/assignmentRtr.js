@@ -23,6 +23,16 @@ router.get('/all/:userID',
     api.getAllAssignments
 );
 
+// GET
+/**
+ * Get all checkers assigned to logged organizer
+ */
+router.get('/checker/assigned',
+    mw.isAuth,
+    mw.hasAccess([ORGANIZER ]),
+    api.getAllAssignmentedtoEvent
+);
+
 // POST
 /**
  * Assigns a checker to an event
@@ -38,14 +48,17 @@ router.post('/create/:eventID/:userID',
     api.postAssignChecker
 );
 
-// GET
+// DELETE
 /**
- * Get all checkers assigned to logged organizer
+ * Assigns a checker to an event
  */
-router.get('/checker/assigned',
+router.delete('/delete/:userID/:eventID',
     mw.isAuth,
-    mw.hasAccess([ORGANIZER ]),
-    api.getAllAssignmentedtoEvent
+    mw.hasAccess([ ORGANIZER ]),
+    mw.isExistingUser,
+    mw.checkRoleParams([ CHECKER ]),
+    mw.isOrganizerAssigned,
+    mw.isEventOrganizer,
+    api.deleteAssignment
 );
-
 module.exports = router;

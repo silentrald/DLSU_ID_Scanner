@@ -60,3 +60,6 @@ curl http://localhost:5000/api/checker/5 -H "Authorization: Bearer eyJhbGciOiJIU
 
 //Delete Checker User
 curl http://localhost:5000/api/checker/delete/5 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjQsInVzZXJuYW1lIjoiT3JnYW5pemVyMjMyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwOTU4MTg4MywiZXhwIjoxNjA5NTg1NDgzfQ.9rxjW_tXxTEG3QyWn5BaVvFpHH3VVT4bMlZvGAs2WSQ" -H "Content-Type: application/json" --request DELETE
+
+//Delete assignment
+curl http://localhost:5000/api/assignment/delete/3/PC8ywoFF9Ne -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjIsInVzZXJuYW1lIjoib3JnYW5pemVyIiwiYWNjZXNzIjoibyIsImlhdCI6MTYwOTkxMDc0MSwiZXhwIjoxNjA5OTE0MzQxfQ.lC10mEPoYziLQiVMDeOQh0L8KZngquGz8DkyWCkS0Ro" -H "Content-Type: application/json" --request DELETE
