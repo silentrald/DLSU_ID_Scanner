@@ -3,6 +3,36 @@ const db = require('../db');
 
 const checkerAPI = {
     // GET
+    getChecker: async (req, res) => {
+        const { userID } = req.params;
+
+        try {
+            const queryCheckerUser = {
+                text: `
+                    SELECT  *
+                    FROM    checker_users
+                    WHERE   user_id = $1
+                        AND organizer_assigned = $2
+                    LIMIT   1;
+                `,
+                values: [
+                    userID,
+                    req.user.userID
+                ]
+            };
+
+            const resultCheckerUser = await db.query(queryCheckerUser);
+            if (resultCheckerUser.rowCount < 1) {
+                return res.status(403).send({ errMsg: 'Error in query' });
+            }
+
+            return res.status(200).send({ event: resultCheckerUser.rows[0] });
+
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end();
+        }
+    },
 
     // POST
     postCreateChecker: async (req, res) => {
@@ -71,12 +101,27 @@ const checkerAPI = {
     // DELETE
     deleteChecker: async (req, res) => {
         const { userID } = req.params;
-
+        
+        /**
+            DELETE FROM
+             - assignments
+             - checker_users
+             - users
+        */
         try {
             const client = await db.connect();
             
             try {
                 await client.query('BEGIN');
+
+                const queryDelAssignments = {
+                    text: `
+                        DELETE FROM assignments
+                        WHERE   user_id = $1; 
+                    `,
+                    values: [ userID ]
+                };
+                await client.query(queryDelAssignments);
 
                 const queryDelCheckerUser = {
                     text: `
@@ -96,6 +141,7 @@ const checkerAPI = {
                 };
                 await client.query(queryDelUser);
                 await client.query('COMMIT');
+                
             } catch (err) {
                 await client.query('ROLLBACK');
                 throw err;

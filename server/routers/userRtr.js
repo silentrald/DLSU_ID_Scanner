@@ -42,6 +42,16 @@ router.post('/organizer/create',
     api.postCreateOrganizer
 );
 
+/**
+ * Gets an organizer user with the admin account
+ */
+router.get('/organizer/:userID',
+    mw.isAuth,
+    mw.hasAccess([ ADMIN ]),
+    mw.validateUserIDParams,
+    api.getOrganizer
+);
+
 // PATCH
 /**
  * Change Password
@@ -54,7 +64,7 @@ router.patch('/password-change/:userID',
 );
 
 // DELETE
-router.delete('/organizer/:userID',
+router.delete('/organizer/delete/:userID',
     mw.isAuth,
     mw.hasAccess([ ADMIN ]),
     mw.validateUserIDParams,

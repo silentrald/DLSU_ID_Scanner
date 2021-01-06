@@ -100,6 +100,37 @@ const assignmentAPI = {
         }
     },
 
+    // DELETE
+    deleteAssignment: async (req, res) => {
+        const { userID, eventID } = req.params;
+
+        try {
+            const queryDeleteAssignment = {
+                text: `
+                    DELETE  
+                    FROM    assignments
+                    WHERE   user_id = $1
+                    AND     event_id = $2
+                `,
+                values: [ userID, eventID ]
+            };
+
+            //Returns the number of successfully deleted entries
+            const rowCount = await db.query(queryDeleteAssignment);
+
+            if(rowCount < 1) {
+                return res.status(403).send({ errMsg: 'Assignment was not deleted' });
+            }
+
+            return res.status(200).send({ msg: 'Assignment Deleted' });
+        } catch (err) {
+            if (!err) return;
+        
+            console.log(err);
+            res.status(403).send({ errMsg: 'Unauthorized Access' });
+        }
+    },
+
 };
 
 module.exports = assignmentAPI;
